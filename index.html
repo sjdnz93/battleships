@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>BATTLESHIPS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+  </head>
+  <body>
+
+    <header>
+      <h1>BATTLESHIPS</h1>
+    </header>
+
+    <main>
+      <!-- Top boats master container -->
+      <div class="boatsContainer">
+
+        <div class="yourBoats top">
+          <div class="boat carrier"><p class="boatDescription">Aircraft Carrier</p></div>
+        </div>
+
+        <div class="compBoats top">
+          <div class="boat carrier"><p class="boatDescription">Aircraft Carrier</p></div>
+        </div>
+
+      </div>
+
+      <!-- Primary game boards, button and rules text filed container -->
+      <div class="masterWrapper">
+
+        <div>
+          <h2>PLAYER 1 - you</h2>
+        </div>
+        <div class="wrapper">
+
+        </div>
+
+        <div id="playRulesWrap">
+        <button id="play">Play</button>
+        <div id="rulesControls">
+          <h3>Info</h3>
+          <p>Press the Play button to start the game</p>
+        </div>
+        </div>
+
+      
+        <div class="wrapper">
+
+        </div>
+        <div>
+          <h2>PLAYER 2 - comp</h2>
+        </div>
+
+      </div>
+
+      <!-- Lower boats master container -->
+
+      <div class="boatsContainer">
+
+        <div class="yourBoats bottom">
+          <div class="boat battleShip">
+            <p class="boatDescription">Battleship</p>
+          </div>
+          <div class="boat destroyer">
+            <p class="boatDescription">Destroyer</p>
+          </div>
+          <div class="boat submarine">
+            <p class="boatDescription">Submarine</p>
+          </div>
+          <div class="boat patrol">
+            <p class="boatDescription">Patrol</p>
+          </div>
+        </div>
+
+        <div class="compBoats bottom">
+          <div class="boat battleShip">
+            <p class="boatDescription">Battleship</p>
+          </div>
+          <div class="boat destroyer">
+            <p class="boatDescription">Destroyer</p>
+          </div>
+          <div class="boat submarine">
+            <p class="boatDescription">Submarine</p>
+          </div>
+          <div class="boat patrol">
+            <p class="boatDescription">Patrol</p>
+          </div>
+        </div>
+
+      </div>
+
+
+    </main>
+
+
+  </body>
+  </html>

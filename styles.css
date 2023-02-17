@@ -1,0 +1,151 @@
+
+/* VARIABLES */
+
+:root {
+  --font: 'Khand', sans-serif;
+  --boatStandardBG: grey;
+}
+
+/* GENERAL STYLES */
+
+* {
+  font-family: var(--font);
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+header {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  height: 90vh;
+}
+
+/* BOAT CONTAINERS */
+
+.boatsContainer {
+  margin: 0 auto;
+  width: 1200px;
+  border: solid 1px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.boatsContainer:last-of-type {
+  height: 110px;
+}
+
+.yourBoats {
+  width: 400px;
+  border: solid;
+  margin: 0;
+  display: flex;
+}
+
+.compBoats {
+  width: 400px;
+  border: solid;
+  margin: 0;
+  display: flex;
+}
+
+.top {
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* BOAT TYPES */
+
+.boat {
+  background-color: var(--boatStandardBG);
+  border: solid;
+  height: 25px;
+}
+
+.carrier {
+  width: 300px;
+}
+
+.battleShip {
+  width: 240px;
+}
+
+.destroyer {
+  width: 180px;
+}
+
+.submarine {
+  width: 180px
+}
+
+.patrol {
+  width: 120px;
+}
+
+/* BOAT DESCRIPTIONS */
+
+.boatDescription {
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+}
+
+/* GAMEBOARD */
+
+.masterWrapper {
+  margin: 0 auto;
+  width: 1500px;
+  height: calc(100vh - 300px);
+  display: flex;
+  align-items: center;
+}
+
+.wrapper {
+  border: solid 1px;
+  width: 610px;
+  height: 610px;
+}
+
+#playRulesWrap {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#play {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+}
+
+#rulesControls {
+  height: 300px;
+  text-align: center;
+  width: 150px;
+  margin: 0 5px;
+}
+
+h2 {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  font-size: 20px;
+  margin: 0;
+  font-weight: bold;
+}
