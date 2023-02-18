@@ -19,7 +19,7 @@ body {
 }
 
 header {
-  height: 10vh;
+  height: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,26 +33,26 @@ main {
 
 .boatsContainer {
   margin: 0 auto;
-  width: 1200px;
-  border: solid 1px;
-  height: 100px;
+  width: 79vw;
+  height: 8vh;
   display: flex;
   justify-content: space-between;
 }
 
+
 .boatsContainer:last-of-type {
-  height: 110px;
+  height: 13vh;
 }
 
 .yourBoats {
-  width: 400px;
+  width: 26vw;
   border: solid;
   margin: 0;
   display: flex;
 }
 
 .compBoats {
-  width: 400px;
+  width: 26vw;
   border: solid;
   margin: 0;
   display: flex;
@@ -74,27 +74,27 @@ main {
 .boat {
   background-color: var(--boatStandardBG);
   border: solid;
-  height: 25px;
+  height: 3vh;
 }
 
 .carrier {
-  width: 300px;
+  width: 20vw;
 }
 
 .battleShip {
-  width: 240px;
+  width: 16vw;
 }
 
 .destroyer {
-  width: 180px;
+  width: 12vw;
 }
 
 .submarine {
-  width: 180px
+  width: 12vw;
 }
 
 .patrol {
-  width: 120px;
+  width: 8vw
 }
 
 /* BOAT DESCRIPTIONS */
@@ -109,36 +109,70 @@ main {
 
 .masterWrapper {
   margin: 0 auto;
-  width: 1500px;
-  height: calc(100vh - 300px);
+  width: 98vw;
+  height: 70vh;
   display: flex;
-  align-items: center;
-}
-
-.wrapper {
-  border: solid 1px;
-  width: 610px;
-  height: 610px;
-}
-
-#playRulesWrap {
-  height: 500px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 
+.wrapper {
+  border: solid 1px rgba(0,0,0,0.3);
+  position: relative;
+  width: 32%;
+}
+
+.wrapper:after { 
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+#wrapperContent1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapperContent2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameSquare {
+  width: 10%;
+  height: 10%;
+  border: solid 1px rgba(0,0,0,0.3);
+  flex-grow: 1;
+}
+
+#playRulesWrap {
+  height: 57vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #play {
-  height: 50px;
-  width: 50px;
+  height: 6vh;
+  width: 6vh;
   border-radius: 100px;
 }
 
 #rulesControls {
-  height: 300px;
+  height: 34vh;
   text-align: center;
-  width: 150px;
+  width: 10vw;
   margin: 0 5px;
 }
 

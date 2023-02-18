@@ -226,3 +226,43 @@
   //?keystrokeEvent
     //tied to spacebar
     //will trigger the boatRotate function (if gameActive variable is set to 1)
+
+
+
+    
+ 
+ function init() {
+
+  const grid1 = document.querySelector('#wrapperContent1')
+  const grid2 = document.querySelector('#wrapperContent2')
+  const width = 10
+  const cellCount = width * width
+
+  console.log(grid1, grid2)
+
+  const playerCells = []
+  const compCells = []
+
+  function generateGrid(grid, cells) {
+    for (let i = 0; i < cellCount; i++) {
+      const cell = document.createElement('div')
+
+      cell.classList.add('gameSquare')
+
+      grid.appendChild(cell)
+
+      cells.push(cell)
+    }
+  }
+
+  generateGrid(grid1, playerCells)
+  generateGrid(grid2, compCells)
+
+ }   
+
+
+
+
+
+
+window.addEventListener('DOMContentLoaded', init)
