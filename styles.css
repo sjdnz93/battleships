@@ -155,6 +155,10 @@ main {
   flex-grow: 1;
 }
 
+.highlightOn {
+  background-color: aqua;
+}
+
 #playRulesWrap {
   height: 57vh;
   display: flex;
