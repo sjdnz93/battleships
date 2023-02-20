@@ -16,6 +16,8 @@ function init() {
 
   //Boat divs
   
+  //Boat orientation
+  let horizontal = true
   
 
   // !VARIABLES - GLOBAL
@@ -32,6 +34,9 @@ function init() {
 
   generateGrid(grid1, playerCells)
   generateGrid(grid2, compCells)
+
+  console.log('GAME ACTIVE -->', gameActive)
+  console.log('BOAT SELECTION -->', boatSelection)
 
 
 
@@ -57,46 +62,84 @@ function init() {
   //Start game
   function startGame() {
     gameActive = 1
-    console.log(gameActive)
+    console.log('GAME ACTIVE -->', gameActive)
+    console.log('BOAT SELECTION -->', boatSelection)
   }
 
   //Highlight squares
   function highlightSquares(e) {
-    const adjacentValues = [e.target.dataset.index - 1, e.target.dataset.index - 2, e.target.dataset.index - 3, e.target.dataset.index - 4, e.target.dataset.index - 5]
-    //show squares for first boat (2 squares highlighted)
-    if (gameActive === 1 && boatSelection === 1 && (e.target.dataset.index % width !== 0)){
-      e.target.classList.toggle('highlightOn')
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-    } //show squares for second boat (3 squares highlighted)
-      else if (gameActive === 1 && boatSelection === 2 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
-      e.target.classList.toggle('highlightOn')
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-    } //show squares for third boat (3 squares highlighted)
-      else if (gameActive === 1 && boatSelection === 3 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
-      e.target.classList.toggle('highlightOn')
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-    } //show squares for fourth boat (4 squares highlighted)
-      else if (gameActive === 1 && boatSelection === 4 && ((e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
-      e.target.classList.toggle('highlightOn')  
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[2]].classList.toggle('highlightOn')
-    } //show squares for fifth boat (5 squares highlighted)
-      else if (gameActive === 1 && boatSelection === 5 && ((e.target.dataset.index - 3) % width !== 0 && (e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
-      e.target.classList.toggle('highlightOn')
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[2]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[3]].classList.toggle('highlightOn')
+    if (gameActive === 1 && horizontal === true) {
+      const adjacentValues = [e.target.dataset.index - 1, e.target.dataset.index - 2, e.target.dataset.index - 3, e.target.dataset.index - 4, e.target.dataset.index - 5]
+      if (boatSelection === 1 && (e.target.dataset.index % width !== 0)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+      } else if (boatSelection === 2 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[1]].classList.toggle('highlightOn')
+      } else if (boatSelection === 3 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
+        e.target.classList.toggle('highlightOn')
+        playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[1]].classList.toggle('highlightOn')
+      } else if (boatSelection === 4 && ((e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
+        e.target.classList.toggle('highlightOn')  
+        playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[1]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[2]].classList.toggle('highlightOn')
+      } else if (boatSelection === 5 && ((e.target.dataset.index - 3) % width !== 0 && (e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[1]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[2]].classList.toggle('highlightOn')
+        playerCells[adjacentValues[3]].classList.toggle('highlightOn')
+      }
+    } else if (gameActive === 1 && horizontal === false) {
+      const vertValues = [e.target.dataset.index - 10, e.target.dataset.index - 20, e.target.dataset.index - 30, e.target.dataset.index - 40, e.target.dataset.index - 50]
+      if (boatSelection === 1 && (e.target.dataset.index / width >= 1)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[vertValues[0]].classList.toggle('highlightOn')
+      } else if (boatSelection === 2 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[vertValues[0]].classList.toggle('highlightOn')
+        playerCells[vertValues[1]].classList.toggle('highlightOn')
+      } else if (boatSelection === 3 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[vertValues[0]].classList.toggle('highlightOn')
+        playerCells[vertValues[1]].classList.toggle('highlightOn')
+      } else if (boatSelection === 4 && ((e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[vertValues[0]].classList.toggle('highlightOn')
+        playerCells[vertValues[1]].classList.toggle('highlightOn')
+        playerCells[vertValues[2]].classList.toggle('highlightOn')
+      } else if (boatSelection === 5 && ((e.target.dataset.index - 30) / width >= 1 && (e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+        e.target.classList.toggle('highlightOn')
+        playerCells[vertValues[0]].classList.toggle('highlightOn')
+        playerCells[vertValues[1]].classList.toggle('highlightOn')
+        playerCells[vertValues[2]].classList.toggle('highlightOn')
+        playerCells[vertValues[3]].classList.toggle('highlightOn')
+      } 
     }
   }
 
   //select function
   function select() {
     boatSelection++
-    console.log(boatSelection)
+    console.log('BOAT SELECTION -->', boatSelection)
+  }
+
+  //change boat orientation
+
+  function boatOrientation(e) {
+    const space = 32
+    if (e.keyCode === space && gameActive === 1) {
+      if (horizontal === true) {
+        horizontal = false
+        console.log('HORIZONTAL -->', horizontal)
+      } else {
+        horizontal = true
+        console.log('HORIZONTAL -->', horizontal)
+      }
+    }
   }
 
   // !EVENT LISTENERS
@@ -110,6 +153,8 @@ function init() {
     sqr.addEventListener('mouseleave', highlightSquares)
     sqr.addEventListener('click', select)
   })
+
+  document.addEventListener('keydown', boatOrientation)
   
 
 
