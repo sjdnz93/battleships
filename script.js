@@ -28,6 +28,13 @@ function init() {
   const cSubmarine = document.querySelector('#cSubmarine')
   const cPatrol = document.querySelector('#cPatrol')
 
+  //Player boat type arrays
+  const pCarrierSquares = []
+  const pBattleshipSquares = []
+  const pDestroyerSquares = []
+  const pSubmarineSquares = []
+  const pPatrolSquares = []
+
   
   //Boat orientation
   let horizontal = true
@@ -61,6 +68,8 @@ function init() {
       cell.classList.add('gameSquare')
 
       cell.dataset.index = i
+
+      cell.dataset.selected = false
 
       cell.innerText = i
 
@@ -135,15 +144,17 @@ function init() {
     } 
   }
 
-  //Highlight squares
+  //Highlight squares to help player positioning
   function highlightSquares(e) {
-    if (gameActive === 1 && horizontal === true) {
-      checkForHighlighting()
-      highlightHorizontal(e)
-    } else if (gameActive === 1 && horizontal === false) {
-      checkForHighlighting()
-      highlightVertical(e)
-    }
+    playerCells.forEach(sqr => { 
+      if (gameActive === 1 && horizontal === true && sqr.dataset.selected === 'false') {
+        checkForHighlightingRemove()
+        highlightHorizontal(e)
+      } else if (gameActive === 1 && horizontal === false) {
+        checkForHighlightingRemove()
+        highlightVertical(e)
+      }
+    })
   }
 
   //change boat orientation
@@ -162,10 +173,21 @@ function init() {
 
   //select function
   function confirmBoatPosition() {
-    playerCells.forEach
-    boatSelection++
-    highlightBoatPic()
-    console.log('BOAT SELECTION -->', boatSelection)
+    if (gameActive === 1 && boatSelection < 5) {
+      checkHighlightingPushArray()
+      console.log('PATROLS ===>', pPatrolSquares)
+      console.log('SUBS ===>', pSubmarineSquares)
+      console.log('DEST ===>', pDestroyerSquares)
+      console.log('BTTL ===>', pBattleshipSquares)
+      console.log('CARRIERS ===>', pCarrierSquares)
+      boatSelection++
+      highlightBoatPic()
+      console.log('BOAT SELECTION -->', boatSelection)
+    } else {
+      pCarrier.classList.remove('highlightOn')
+      gameActive++
+      console.log('GAME ACTIVE -->', gameActive)
+    }
   }
 
   //highlight boat picture
@@ -184,17 +206,59 @@ function init() {
     } else if (boatSelection === 5) {
       pBattleship.classList.remove('highlightOn')
       pCarrier.classList.add('highlightOn')
-    }
+    } 
   }
 
-  //Check squares for highlighting
-  function checkForHighlighting() {
+  //Check squares for highlighting to remove
+  function checkForHighlightingRemove() {
     playerCells.forEach(sqr => {
-      if (sqr.classList.contains('highlightOn')) {
+      if (sqr.classList.contains('highlightOn') && sqr.dataset.selected === 'false') {
         sqr.classList.remove('highlightOn')
       }
     })
   }
+
+  function unhighlightSquares() {
+    playerCells.forEach(sqr => {
+      if (sqr.classList.contains('highlightOn') && sqr.dataset.selected === false) {
+        sqr.classList.remove('highlightOn')
+      }
+    })
+  }
+
+  //Check squares for highlighting to save to array for that boat type
+  function checkHighlightingPushArray () {
+    playerCells.forEach(sqr => {
+      if (boatSelection === 1 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
+        sqr.classList.add('highlightOn')
+        pPatrolSquares.push(sqr.dataset.index)
+        sqr.dataset.selected = true
+        
+      } else if (boatSelection === 2 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
+        sqr.classList.add('highlightOn')
+        pSubmarineSquares.push(sqr.dataset.index)
+        sqr.dataset.selected = true
+        
+      } else if (boatSelection === 3 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
+        sqr.classList.add('highlightOn')
+        pDestroyerSquares.push(sqr.dataset.index)
+        sqr.dataset.selected = true
+      
+      } else if (boatSelection === 4 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
+        sqr.classList.add('highlightOn')
+        pBattleshipSquares.push(sqr.dataset.index)
+        sqr.dataset.selected = true
+    
+      } else if (boatSelection === 5 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
+        sqr.classList.add('highlightOn')
+        pCarrierSquares.push(sqr.dataset.index)
+        sqr.dataset.selected = true
+  
+      } 
+    })
+    
+  }
+
 
   // !EVENT LISTENERS
 
@@ -204,7 +268,7 @@ function init() {
   //Highlight tiles on gameboard
   playerCells.forEach(sqr => {
     sqr.addEventListener('mouseover', highlightSquares)
-    sqr.addEventListener('mouseleave', highlightSquares)
+    sqr.addEventListener('mouseleave', unhighlightSquares)
     sqr.addEventListener('click', confirmBoatPosition)
   })
 
