@@ -159,6 +159,22 @@ main {
   background-color: aqua;
 }
 
+.highlightOn2 {
+  background-color: brown;
+}
+
+.highlightOn3 {
+  background-color: yellow;
+}
+
+.highlightOn4 {
+  background-color: green;
+}
+
+.highlightOn5 {
+  background-color:black
+}
+
 #playRulesWrap {
   height: 57vh;
   display: flex;

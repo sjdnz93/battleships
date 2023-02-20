@@ -35,6 +35,13 @@ function init() {
   const pSubmarineSquares = []
   const pPatrolSquares = []
 
+  //Computer boat type arrays
+  const cCarrierSquares = []
+  const cBattleshipSquares = []
+  const cDestroyerSquares = []
+  const cSubmarineSquares = []
+  const cPatrolSquares = []
+
   
   //Boat orientation
   let horizontal = true
@@ -49,11 +56,14 @@ function init() {
   let gameActive = 0
 
   let boatSelection = 1
+  let compBoatsPlaced = 1
 
   // !PAGE LOAD TASKS
 
   generateGrid(grid1, playerCells)
   generateGrid(grid2, compCells)
+  compPlaceBoats()
+  compPlaceBoats()
 
   console.log('GAME ACTIVE -->', gameActive)
   console.log('BOAT SELECTION -->', boatSelection)
@@ -88,6 +98,8 @@ function init() {
     
   }
 
+
+  //?PLAYER SET UP FUNCTIONS
   //Highlight horizontal squares
   function highlightHorizontal(e) {
     const adjacentValues = [e.target.dataset.index - 1, e.target.dataset.index - 2, e.target.dataset.index - 3, e.target.dataset.index - 4, e.target.dataset.index - 5]
@@ -173,7 +185,7 @@ function init() {
 
   //select function
   function confirmBoatPosition() {
-    if (gameActive === 1 && boatSelection < 5) {
+    if (gameActive === 1 && boatSelection <= 5) {
       checkHighlightingPushArray()
       console.log('PATROLS ===>', pPatrolSquares)
       console.log('SUBS ===>', pSubmarineSquares)
@@ -185,7 +197,7 @@ function init() {
       console.log('BOAT SELECTION -->', boatSelection)
     } else {
       pCarrier.classList.remove('highlightOn')
-      gameActive++
+      
       console.log('GAME ACTIVE -->', gameActive)
     }
   }
@@ -256,6 +268,38 @@ function init() {
   
       } 
     })
+    
+  }
+
+  //?COMPUTER SET UP FUNCTIONS
+  function compPlaceBoats() {
+    
+    const randNum = Math.floor(Math.random() * compCells.length)
+    console.log('RANDNUM', randNum)
+    
+    if (compBoatsPlaced === 1) {
+      compCells.forEach(sqr => {
+        if (sqr.dataset.selected === 'false' && (randNum % width !== 0)) {
+          compCells[randNum].classList.add('highlightOn')
+          compCells[randNum].dataset.selected = true
+          compCells[randNum - 1].classList.add('highlightOn')
+          compCells[randNum - 1].dataset.selected = true
+        } 
+      }) 
+      
+    } 
+    if (compBoatsPlaced === 2) {
+      compCells.forEach(sqr => {
+        if (sqr.dataset.selected === 'false' && (randNum % width !== 0) && sqr.classList.contains('highlightOn') !== true) {
+          compCells[randNum].classList.add('highlightOn2')
+          compCells[randNum].dataset.selected = true
+          compCells[(randNum - 1)].classList.add('highlightOn2')
+          compCells[randNum - 1].dataset.selected = true
+        } 
+      })
+    } 
+    compBoatsPlaced++
+    console.log('boatsPlaced', compBoatsPlaced)
     
   }
 
