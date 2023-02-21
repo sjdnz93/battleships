@@ -36,11 +36,11 @@ function init() {
   const pPatrolSquares = []
 
   //Computer boat type arrays
-  const cCarrierSquares = []
-  const cBattleshipSquares = []
-  const cDestroyerSquares = []
-  const cSubmarineSquares = []
-  const cPatrolSquares = []
+  let cCarrierSquares = []
+  let cBattleshipSquares = []
+  let cDestroyerSquares = []
+  let cSubmarineSquares = []
+  let cPatrolSquares = []
 
   
   //Boat orientation
@@ -57,6 +57,7 @@ function init() {
 
   let boatSelection = 1
   let compBoatsPlaced = 1
+  let compBoatsRemaining = 0
 
   // !PAGE LOAD TASKS
 
@@ -280,32 +281,49 @@ function init() {
       const sqrSub30 = randNum - 30
       const sqrSub40 = randNum - 40
 
-      //?first boat placement (2 squares)
+      //?Patrol boat placement (2 squares)
       if (compBoatsPlaced === 1) {
         if (randNum % width !== 0) {
           compCells[randNum].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
           compCells[randNum - 1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
+          compBoatsRemaining += 2
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('patrol vals logged ok', cPatrolSquares)
           
         } else {
           
           compCells[0].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
           compCells[1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[1].dataset.index)
           compCells[1].dataset.selected = true
+          compBoatsRemaining += 2
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('patrol vals logged backup', cPatrolSquares)
         }
         
         
-        //?second boat placement (3 squares)
+        //?Submarine boat placement (3 squares)
       } else if (compBoatsPlaced === 2) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
           compCells[randNum].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
           compCells[sqrSub10].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
           compCells[sqrSub20].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('sub vals logged ok', cSubmarineSquares)
+
         } else {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
@@ -314,28 +332,52 @@ function init() {
               sqr.classList.remove('highlightOn')
             }
           })
+
+          cPatrolSquares = []
+          
+
           //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
           compCells[0].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
           compCells[1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[1].dataset.index)
           compCells[1].dataset.selected = true
+
+          console.log('patrol array wiped and replaced with', cPatrolSquares)
+          
           compCells[99].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[99].dataset.index)
           compCells[99].dataset.selected = true
           compCells[89].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[89].dataset.index)
           compCells[89].dataset.selected = true
           compCells[79].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[79].dataset.index)
           compCells[79].dataset.selected = true
+
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('sub vals logged backup', cSubmarineSquares)
         }
 
-        //?third boat placement (3 squares)
+        //?Destyroyer placement (3 squares)
       } else if (compBoatsPlaced === 3) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
           compCells[randNum].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
           compCells[sqrSub10].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
           compCells[sqrSub20].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
+
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('Dest vals logged ok', cDestroyerSquares)
+
         } else {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
@@ -345,42 +387,71 @@ function init() {
               sqr.classList.remove('highlightOn2')
             }
           })
+
+          cPatrolSquares = []
+          cSubmarineSquares = []
+
+
           //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
-          console.log('error placing third boat')
           compCells[0].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
           compCells[1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[1].dataset.index)
           compCells[1].dataset.selected = true
+
+          console.log('patrol array wiped and replaced with', cPatrolSquares)
+          
           compCells[99].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[99].dataset.index)
           compCells[99].dataset.selected = true
           compCells[89].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[89].dataset.index)
           compCells[89].dataset.selected = true
           compCells[79].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[79].dataset.index)
           compCells[79].dataset.selected = true
+
+          console.log('sub array wiped and replaced with', cSubmarineSquares)
+
           compCells[82].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[82].dataset.index)
           compCells[82].dataset.selected = true
           compCells[72].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[72].dataset.index)
           compCells[72].dataset.selected = true
           compCells[62].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[62].dataset.index)
           compCells[62].dataset.selected = true
+
+
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('Dest vals logged backup', cDestroyerSquares)
+          
         }
 
-        //?fourth boat placement (4 squares)
+        //?Battleship placement (4 squares)
       } else if (compBoatsPlaced === 4) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false') {
           console.log('test')
           compCells[randNum].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          console.log('boat placed here', compCells[randNum])
           compCells[randNum - 1].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          console.log('boat placed here', compCells[randNum - 1])
           compCells[randNum - 2].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
-          console.log('boat placed here', compCells[randNum - 2])
           compCells[randNum - 3].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[randNum - 3].dataset.index)
           compCells[randNum - 3].dataset.selected = true
-          console.log('boat placed here', compCells[randNum - 3])
+
+          compBoatsRemaining += 4
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('Bttl vals logged ok', cBattleshipSquares)
+
         } else {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
@@ -391,47 +462,93 @@ function init() {
               sqr.classList.remove('highlightOn3')
             }
           })
+
+          cPatrolSquares = []
+          cSubmarineSquares = []
+          cDestroyerSquares = []
+
+
+
           //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
-          console.log('error placing fourth boat so have placed all boats in pre-assigned location')
           compCells[0].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
           compCells[1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[1].dataset.index)
           compCells[1].dataset.selected = true
+
+          console.log('patrol array wiped and replaced with', cPatrolSquares)
+          
           compCells[99].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[99].dataset.index)
           compCells[99].dataset.selected = true
           compCells[89].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[89].dataset.index)
           compCells[89].dataset.selected = true
           compCells[79].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[79].dataset.index)
           compCells[79].dataset.selected = true
+
+          console.log('sub array wiped and replaced with', cSubmarineSquares)
+
           compCells[82].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[82].dataset.index)
           compCells[82].dataset.selected = true
           compCells[72].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[72].dataset.index)
           compCells[72].dataset.selected = true
           compCells[62].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[62].dataset.index)
           compCells[62].dataset.selected = true
+
+          console.log('Dest array wiped and replaced with', cDestroyerSquares)
+
           compCells[28].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[28].dataset.index)
           compCells[28].dataset.selected = true
           compCells[27].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[27].dataset.index)
           compCells[27].dataset.selected = true
           compCells[26].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[26].dataset.index)
           compCells[26].dataset.selected = true
           compCells[25].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[25].dataset.index)
           compCells[25].dataset.selected = true
+
+
+          compBoatsRemaining += 4
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('Bttl vals logged backup', cBattleshipSquares)
         }
 
-        //?fifth boat placement (5 squares)
+        //?carrier placement (5 squares)
       } else if (compBoatsPlaced === 5) {
         if (compCells[randNum].dataset.index >= 40 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub40].dataset.index >= 0 && compCells[sqrSub40].dataset.selected === 'false' && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
           compCells[randNum].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
           compCells[sqrSub10].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
           compCells[sqrSub20].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
           compCells[sqrSub30].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[sqrSub30].dataset.index)
           compCells[sqrSub30].dataset.selected = true
           compCells[sqrSub40].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[sqrSub40].dataset.index)
           compCells[sqrSub40].dataset.selected = true
+
+          compBoatsRemaining += 5
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('FINALCarrier vals logged OK', cCarrierSquares) 
+          console.log('FINALBttl vals logged OK', cBattleshipSquares) 
+          console.log('FINALDest vals logged OK', cDestroyerSquares) 
+          console.log('FINALSub vals logged OK', cSubmarineSquares) 
+          console.log('FINALPatrol vals logged OK', cPatrolSquares) 
+
         } else {
           console.log('what happens here')
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
@@ -443,42 +560,88 @@ function init() {
               sqr.classList.remove('highlightOn4')
             }
           })
+
+          cPatrolSquares = []
+          cSubmarineSquares = []
+          cDestroyerSquares = []
+          cBattleshipSquares = []
+
+
+
           //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
-          console.log('error placing FIFTH boat so have placed all boats in pre-assigned location')
+
           compCells[0].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
           compCells[1].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[1].dataset.index)
           compCells[1].dataset.selected = true
+
+          console.log('patrol array wiped and replaced with', cPatrolSquares)
+          
           compCells[99].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[99].dataset.index)
           compCells[99].dataset.selected = true
           compCells[89].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[89].dataset.index)
           compCells[89].dataset.selected = true
           compCells[79].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[79].dataset.index)
           compCells[79].dataset.selected = true
+
+          console.log('sub array wiped and replaced with', cSubmarineSquares)
+
           compCells[82].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[82].dataset.index)
           compCells[82].dataset.selected = true
           compCells[72].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[72].dataset.index)
           compCells[72].dataset.selected = true
           compCells[62].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[62].dataset.index)
           compCells[62].dataset.selected = true
+
+          console.log('Dest array wiped and replaced with', cDestroyerSquares)
+
           compCells[28].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[28].dataset.index)
           compCells[28].dataset.selected = true
           compCells[27].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[27].dataset.index)
           compCells[27].dataset.selected = true
           compCells[26].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[26].dataset.index)
           compCells[26].dataset.selected = true
           compCells[25].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[25].dataset.index)
           compCells[25].dataset.selected = true
+
+          console.log('Bttl array wiped and replaced with', cBattleshipSquares)
+
           compCells[60].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[60].dataset.index)
           compCells[60].dataset.selected = true
           compCells[50].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[50].dataset.index)
           compCells[50].dataset.selected = true
           compCells[40].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[40].dataset.index)
           compCells[40].dataset.selected = true
           compCells[30].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[30].dataset.index)
           compCells[30].dataset.selected = true
           compCells[20].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[20].dataset.index)
           compCells[20].dataset.selected = true
+
+
+          compBoatsRemaining += 5
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('FINALCarrier vals logged backup', cCarrierSquares) 
+          console.log('FINALBttl vals logged backup', cBattleshipSquares) 
+          console.log('FINALDest vals logged backup', cDestroyerSquares) 
+          console.log('FINALSub vals logged backup', cSubmarineSquares) 
+          console.log('FINALPatrol vals logged backup', cPatrolSquares) 
         }
 
       
