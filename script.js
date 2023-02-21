@@ -306,7 +306,10 @@ function init() {
           console.log('patrol vals logged ok', cPatrolSquares)
           
         } else {
-          
+          //Resetting selected values of squares pre-reassignment to false
+          compCells[randNum].dataset.selected = false
+          compCells[randNum - 1].dataset.selected = false
+
           compCells[0].classList.add('highlightOn')
           cPatrolSquares.push(compCells[0].dataset.index)
           compCells[0].dataset.selected = true
@@ -339,8 +342,10 @@ function init() {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
           compCells.forEach(sqr => {
-            if (sqr.classList.contains('highlightOn')) {
+            if (sqr.classList.contains('highlightOn') || sqr.dataset.selected === 'true') {
+              sqr.dataset.selected = false
               sqr.classList.remove('highlightOn')
+              
             }
           })
 
@@ -393,7 +398,8 @@ function init() {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
           compCells.forEach(sqr => {
-            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2')) {
+            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.dataset.selected === 'true') {
+              sqr.dataset.selected = false
               sqr.classList.remove('highlightOn')
               sqr.classList.remove('highlightOn2')
             }
@@ -467,7 +473,8 @@ function init() {
           
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
           compCells.forEach(sqr => {
-            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3')) {
+            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.dataset.selected === 'true') {
+              sqr.dataset.selected = false
               sqr.classList.remove('highlightOn')
               sqr.classList.remove('highlightOn2')
               sqr.classList.remove('highlightOn3')
@@ -564,7 +571,8 @@ function init() {
           console.log('what happens here')
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
           compCells.forEach(sqr => {
-            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4')) {
+            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4') || sqr.dataset.selected === 'true') {
+              sqr.dataset.selected = false
               sqr.classList.remove('highlightOn')
               sqr.classList.remove('highlightOn2')
               sqr.classList.remove('highlightOn3')
@@ -664,24 +672,50 @@ function init() {
 
   //?ACTIVE GAMEPLAY FUNCTIONS
   function takeShot(e) {
-    if (gameActive === 2 && (compBoatsRemaining > 0 || playerBoatsRemaining > 0)) {
+    if (gameActive === 2 && compBoatsRemaining > 1 && playerBoatsRemaining > 1) {
       if (e.target.dataset.selected === 'true') {
         e.target.classList.add('hit')
         console.log('Your shot successfully landed on ', e.target)
+        compBoatsRemaining--
+        console.log(`The computer has ${compBoatsRemaining} left in play.`)
       } else {
         e.target.classList.add('miss')
         console.log('YOU FUCKING MISSED ', e.target)
-      }
-      
-        
+      } 
+    } else if (gameActive === 2 && (compBoatsRemaining === 1 || playerBoatsRemaining === 1)) {
+      if (e.target.dataset.selected === 'true') {
+        e.target.classList.add('hit')
+        console.log('Your shot successfully landed on ', e.target)
+        compBoatsRemaining--
+        console.log(`The computer has ${compBoatsRemaining} left in play.`)
+        console.log('GAME OVER')
+        gameActive = 3
+        console.log(gameActive)
+      } else {
+        e.target.classList.add('miss')
+        console.log('YOU FUCKING MISSED ', e.target)
+      } 
+    } 
+    computerTakeShot()
+    console.log('COMPUTER HAS ATTEMPTED SHOT')
+  }
 
-
-
-
-
-
-
+  function computerTakeShot() {
+    const randShotNum = Math.floor(Math.random() * 100)
+    const targetSquareSelect = playerCells[randShotNum].dataset.selected
+    const targetSquare = playerCells[randShotNum]
+    if (targetSquareSelect === 'true') {
+      targetSquare.classList.add('hit')
+      playerBoatsRemaining--
+    } else {
+      targetSquare.classList.add('miss')
     }
+    /*if (playerCells[randShotNum].dataset.selected === 'true') {
+      playerCells[randShotNum].classList.add('.hit')
+      playerBoatsRemaining--
+    } else {
+      playerCells[randShotNum].classList.add('.miss')
+    }*/
   }
 
 
