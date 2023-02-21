@@ -34,14 +34,14 @@ function init() {
   // !VARIABLES - GLOBAL
 
   //Player boat type arrays
-  const pCarrierSquares = []
-  const pBattleshipSquares = []
-  const pDestroyerSquares = []
-  const pSubmarineSquares = []
-  const pPatrolSquares = []
+  let pCarrierSquares = []
+  let pBattleshipSquares = []
+  let pDestroyerSquares = []
+  let pSubmarineSquares = []
+  let pPatrolSquares = []
 
   //Computer boat type arrays
-  const cCarrierSquares = []
+  let cCarrierSquares = []
   let cBattleshipSquares = []
   let cDestroyerSquares = []
   let cSubmarineSquares = []
@@ -97,11 +97,71 @@ function init() {
 
   //Start game
   function startGame() {
-    gameActive = 1
-    console.log('GAME ACTIVE -->', gameActive)
-    console.log('BOAT SELECTION -->', boatSelection)
-    highlightBoatPic()
-    
+    if (gameActive === 0) {
+      gameActive = 1
+      console.log('GAME ACTIVE -->', gameActive)
+      console.log('BOAT SELECTION -->', boatSelection)
+      highlightBoatPic()
+    } else if (gameActive === 3) {
+      resetBoard()
+    } else {
+      console.log('BUTTON NOT WORKING')
+    }
+  }
+
+  //Reset board
+  function resetBoard() {
+    if (gameActive >= 1) {
+      gameActive = 1
+      boatSelection = 1
+      compBoatsPlaced = 1
+      compBoatsRemaining = 0
+      playerBoatsRemaining = 17
+
+      pCarrierSquares = []
+      pBattleshipSquares = []
+      pDestroyerSquares = []
+      pSubmarineSquares = []
+      pPatrolSquares = []
+
+      cCarrierSquares = []
+      cBattleshipSquares = []
+      cDestroyerSquares = []
+      cSubmarineSquares = []
+      cPatrolSquares = []
+
+      playerCells.forEach(sqr => {
+        if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4') || sqr.classList.contains('highlightOn5') || sqr.dataset.selected === 'true' || sqr.dataset.clicked === 'true' || sqr.classList.contains('hit') || sqr.classList.contains('miss')) {
+          sqr.dataset.selected = false
+          sqr.classList.remove('highlightOn')
+          sqr.classList.remove('highlightOn2')
+          sqr.classList.remove('highlightOn3')
+          sqr.classList.remove('highlightOn4')
+          sqr.classList.remove('highlightOn5')
+          sqr.classList.remove('hit')
+          sqr.classList.remove('miss')
+          sqr.dataset.clicked = false
+        }
+      })
+
+      compCells.forEach(sqr => {
+        if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4') || sqr.classList.contains('highlightOn5') || sqr.dataset.selected === 'true' || sqr.dataset.clicked === 'true' || sqr.classList.contains('hit') || sqr.classList.contains('miss')) {
+          sqr.dataset.selected = false
+          sqr.classList.remove('highlightOn')
+          sqr.classList.remove('highlightOn2')
+          sqr.classList.remove('highlightOn3')
+          sqr.classList.remove('highlightOn4')
+          sqr.classList.remove('highlightOn5')
+          sqr.classList.remove('hit')
+          sqr.classList.remove('miss')
+          sqr.dataset.clicked = false
+        }
+      })
+
+      compPlaceBoats()
+      highlightBoatPic()
+    }
+
   }
 
 
@@ -766,16 +826,18 @@ function init() {
   //?END GAME FUNCTIONS
   function endGame() {
     if (compBoatsRemaining === 0) {
-      rulesText.innerText = 'PLAYER WINS!'
+      rulesText.innerText = 'PLAYER WINS! Press the Reset button if you want to play again.'
     } else if (playerBoatsRemaining === 0) {
-      rulesText.innerText = 'YOU LOSE. COMPUTER WINS!'
+      rulesText.innerText = 'YOU LOSE. COMPUTER WINS! Press the Reset button if you want to play again.'
     }
+    startButton.innerText = 'Reset'
   }
 
   // !EVENT LISTENERS
 
   //Start button
   startButton.addEventListener('click', startGame)
+  startButton.addEventListener('click', resetBoard)
 
   //Highlight tiles on gameboard
   playerCells.forEach(sqr => {
