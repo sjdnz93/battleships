@@ -28,6 +28,11 @@ function init() {
   const cSubmarine = document.querySelector('#cSubmarine')
   const cPatrol = document.querySelector('#cPatrol')
 
+  //Rules box text
+  const rulesText = document.querySelector('#instructionText')
+
+  // !VARIABLES - GLOBAL
+
   //Player boat type arrays
   const pCarrierSquares = []
   const pBattleshipSquares = []
@@ -45,9 +50,6 @@ function init() {
   
   //Boat orientation
   let horizontal = true
-  
-
-  // !VARIABLES - GLOBAL
 
 
   const width = 10
@@ -309,8 +311,13 @@ function init() {
           
         } else {
           //Resetting selected values of squares pre-reassignment to false
-          compCells[randNum].dataset.selected = false
-          compCells[randNum - 1].dataset.selected = false
+          compCells.forEach(sqr => {
+            if (sqr.classList.contains('highlightOn') || sqr.dataset.selected === 'true') {
+              sqr.dataset.selected = false
+              sqr.classList.remove('highlightOn')
+              
+            }
+          })
 
           compCells[0].classList.add('highlightOn')
           cPatrolSquares.push(compCells[0].dataset.index)
@@ -680,9 +687,13 @@ function init() {
         console.log('Your shot successfully landed on ', e.target)
         compBoatsRemaining--
         console.log(`The computer has ${compBoatsRemaining} left in play.`)
+        computerTakeShot()
+        console.log('COMPUTER HAS ATTEMPTED SHOT')
       } else {
         e.target.classList.add('miss')
         console.log('YOU MISSED ', e.target)
+        computerTakeShot()
+        console.log('COMPUTER HAS ATTEMPTED SHOT')
       } 
     } else if (gameActive === 2 && (compBoatsRemaining === 1 || playerBoatsRemaining === 1)) {
       if (e.target.dataset.selected === 'true') {
@@ -693,13 +704,17 @@ function init() {
         console.log('GAME OVER')
         gameActive = 3
         console.log(gameActive)
+        endGame()
       } else {
         e.target.classList.add('miss')
         console.log('YOU MISSED ', e.target)
+        computerTakeShot()
+        console.log('COMPUTER HAS ATTEMPTED SHOT')
       } 
+    } else {
+      console.log('FOLLOW THE INSTRUCTIONS')//change this to an alert?
     } 
-    computerTakeShot()
-    console.log('COMPUTER HAS ATTEMPTED SHOT')
+
   }
 
   function computerTakeShot() {
@@ -711,25 +726,51 @@ function init() {
       const randShotNum = Math.floor(Math.random() * 100)
       const targetSquareSelect = playerCells[randShotNum].dataset.selected
       const targetSquare = playerCells[randShotNum]
-      if (targetSquare.dataset.clicked === 'true') {
-        console.log('FINDING NEW TARGET')
-      } else if (targetSquare.dataset.clicked === 'false') {
-        if (targetSquareSelect === 'true') {
-          targetSquare.classList.add('hit')
-          targetSquare.dataset.clicked = true
-          playerBoatsRemaining--
-          varActive ++
-        } else {
-          targetSquare.classList.add('miss')
-          targetSquare.dataset.clicked = true
-          varActive ++
+      if (playerBoatsRemaining > 1) {
+        if (targetSquare.dataset.clicked === 'true') {
+          console.log('FINDING NEW TARGET')
+        } else if (targetSquare.dataset.clicked === 'false') {
+          if (targetSquareSelect === 'true') {
+            targetSquare.classList.add('hit')
+            targetSquare.dataset.clicked = true
+            playerBoatsRemaining--
+            varActive ++
+          } else {
+            targetSquare.classList.add('miss')
+            targetSquare.dataset.clicked = true
+            varActive ++
+          }
+        }
+      } else if (playerBoatsRemaining === 1) {
+        if (targetSquare.dataset.clicked === 'true') {
+          console.log('FINDING NEW TARGET')
+        } else if (targetSquare.dataset.clicked === 'false') {
+          if (targetSquareSelect === 'true') {
+            targetSquare.classList.add('hit')
+            targetSquare.dataset.clicked = true
+            playerBoatsRemaining--
+            gameActive = 3
+            console.log('GAME SHOULD END HERE COMPUTER HAS KILLED YOUR BOATS')
+            endGame()
+            varActive ++
+          } else {
+            targetSquare.classList.add('miss')
+            targetSquare.dataset.clicked = true
+            varActive ++
+          }
         }
       }
-      
-      
     }
   }
 
+  //?END GAME FUNCTIONS
+  function endGame() {
+    if (compBoatsRemaining === 0) {
+      rulesText.innerText = 'PLAYER WINS!'
+    } else if (playerBoatsRemaining === 0) {
+      rulesText.innerText = 'YOU LOSE. COMPUTER WINS!'
+    }
+  }
 
   // !EVENT LISTENERS
 
