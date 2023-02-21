@@ -273,12 +273,16 @@ function init() {
 
   //?COMPUTER SET UP FUNCTIONS
   function compPlaceBoats() {
-    while (compBoatsPlaced <= 2) {
+    while (compBoatsPlaced <= 4) {
       const randNum = Math.floor(Math.random() * compCells.length)
       const sqrSub10 = randNum - 10
       const sqrSub20 = randNum - 20
+      const sqrSub30 = randNum - 30
+      const sqrSub40 = randNum - 40
+
+      //?first boat placement (2 squares)
       if (compBoatsPlaced === 1) {
-        if ((randNum % width !== 0)) {
+        if (randNum % width !== 0) {
           compCells[randNum].classList.add('highlightOn')
           compCells[randNum].dataset.selected = true
           compCells[randNum - 1].classList.add('highlightOn')
@@ -292,21 +296,16 @@ function init() {
         }
         
         
-        
+        //?second boat placement (3 squares)
       } else if (compBoatsPlaced === 2) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          console.log('test')
           compCells[randNum].classList.add('highlightOn2')
           compCells[randNum].dataset.selected = true
-          console.log('boat placed here', compCells[randNum])
           compCells[sqrSub10].classList.add('highlightOn2')
           compCells[sqrSub10].dataset.selected = true
-          console.log('boat placed here', compCells[sqrSub10])
           compCells[sqrSub20].classList.add('highlightOn2')
           compCells[sqrSub20].dataset.selected = true
-          console.log('boat placed here', compCells[sqrSub20])
         } else {
-          console.log('what happens here')
           // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
           compCells.forEach(sqr => {
             if (sqr.classList.contains('highlightOn')) {
@@ -326,8 +325,99 @@ function init() {
           compCells[79].dataset.selected = true
         }
 
+        //?third boat placement (3 squares)
+      } else if (compBoatsPlaced === 3) {
+        if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn3')
+          compCells[randNum].dataset.selected = true
+          compCells[sqrSub10].classList.add('highlightOn3')
+          compCells[sqrSub10].dataset.selected = true
+          compCells[sqrSub20].classList.add('highlightOn3')
+          compCells[sqrSub20].dataset.selected = true
+        } else {
+          // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
+          compCells.forEach(sqr => {
+            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2')) {
+              sqr.classList.remove('highlightOn')
+              sqr.classList.remove('highlightOn2')
+            }
+          })
+          //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
+          console.log('error placing third boat')
+          compCells[0].classList.add('highlightOn')
+          compCells[0].dataset.selected = true
+          compCells[1].classList.add('highlightOn')
+          compCells[1].dataset.selected = true
+          compCells[99].classList.add('highlightOn2')
+          compCells[99].dataset.selected = true
+          compCells[89].classList.add('highlightOn2')
+          compCells[89].dataset.selected = true
+          compCells[79].classList.add('highlightOn2')
+          compCells[79].dataset.selected = true
+          compCells[82].classList.add('highlightOn3')
+          compCells[82].dataset.selected = true
+          compCells[72].classList.add('highlightOn3')
+          compCells[72].dataset.selected = true
+          compCells[62].classList.add('highlightOn3')
+          compCells[62].dataset.selected = true
+        }
+
+        //?fourth boat placement (4 squares)
+      } else if (compBoatsPlaced === 4) {
+        if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false') {
+          console.log('test')
+          compCells[randNum].classList.add('highlightOn4')
+          compCells[randNum].dataset.selected = true
+          console.log('boat placed here', compCells[randNum])
+          compCells[randNum - 1].classList.add('highlightOn4')
+          compCells[randNum - 1].dataset.selected = true
+          console.log('boat placed here', compCells[randNum - 1])
+          compCells[randNum - 2].classList.add('highlightOn4')
+          compCells[randNum - 2].dataset.selected = true
+          console.log('boat placed here', compCells[randNum - 2])
+          compCells[randNum - 3].classList.add('highlightOn4')
+          compCells[randNum - 3].dataset.selected = true
+          console.log('boat placed here', compCells[randNum - 3])
+        } else {
+          console.log('what happens here')
+          // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
+          compCells.forEach(sqr => {
+            if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3')) {
+              sqr.classList.remove('highlightOn')
+              sqr.classList.remove('highlightOn2')
+              sqr.classList.remove('highlightOn3')
+            }
+          })
+          //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
+          console.log('error placing fourth boat so have placed all boats in pre-assigned location')
+          compCells[0].classList.add('highlightOn')
+          compCells[0].dataset.selected = true
+          compCells[1].classList.add('highlightOn')
+          compCells[1].dataset.selected = true
+          compCells[99].classList.add('highlightOn2')
+          compCells[99].dataset.selected = true
+          compCells[89].classList.add('highlightOn2')
+          compCells[89].dataset.selected = true
+          compCells[79].classList.add('highlightOn2')
+          compCells[79].dataset.selected = true
+          compCells[82].classList.add('highlightOn3')
+          compCells[82].dataset.selected = true
+          compCells[72].classList.add('highlightOn3')
+          compCells[72].dataset.selected = true
+          compCells[62].classList.add('highlightOn3')
+          compCells[62].dataset.selected = true
+          compCells[28].classList.add('highlightOn4')
+          compCells[28].dataset.selected = true
+          compCells[27].classList.add('highlightOn4')
+          compCells[27].dataset.selected = true
+          compCells[26].classList.add('highlightOn4')
+          compCells[26].dataset.selected = true
+          compCells[25].classList.add('highlightOn4')
+          compCells[25].dataset.selected = true
+        }
+
         
-      } 
+      }
       compBoatsPlaced++
       console.log('this is', compBoatsPlaced)
     }
@@ -373,3 +463,5 @@ window.addEventListener('DOMContentLoaded', init)
 //([sqr.dataset.index - 10].dataset.selected === 'false') && (((randNum - 10) / width >= 1) || (randNum) === 10)
 //&& (compCells[sqrSub10].dataset.selected === 'false') && (compCells[sqrSub10].dataset.index >= 0)
 //(sqr.dataset.selected !== 'true') && sqrSub10 >= 0 && (compCells[sqrSub10].dataset.selected === 'false')
+
+//((compCells[randNum - 1].dataset.index - 2) % width !== 0) &&
