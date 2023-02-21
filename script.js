@@ -275,8 +275,9 @@ function init() {
   function compPlaceBoats() {
     while (compBoatsPlaced <= 2) {
       const randNum = Math.floor(Math.random() * compCells.length)
+      const sqrSub10 = randNum - 10
+      const sqrSub20 = randNum - 20
       if (compBoatsPlaced === 1) {
-        //compCells.forEach(() => {})
         if ((randNum % width !== 0)) {
           compCells[randNum].classList.add('highlightOn')
           compCells[randNum].dataset.selected = true
@@ -289,14 +290,11 @@ function init() {
           compCells[1].classList.add('highlightOn')
           compCells[1].dataset.selected = true
         }
-        //rebracket 1st forEach here
         
         
         
       } else if (compBoatsPlaced === 2) {
-        //compCells.forEach(() => {}) 
-        const sqrSub10 = randNum - 10
-        if (compCells[randNum].dataset.index >= 10 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub10].dataset.index >= 0 && compCells[sqrSub10].dataset.selected === 'false') {
+        if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
           console.log('test')
           compCells[randNum].classList.add('highlightOn2')
           compCells[randNum].dataset.selected = true
@@ -304,16 +302,30 @@ function init() {
           compCells[sqrSub10].classList.add('highlightOn2')
           compCells[sqrSub10].dataset.selected = true
           console.log('boat placed here', compCells[sqrSub10])
+          compCells[sqrSub20].classList.add('highlightOn2')
+          compCells[sqrSub20].dataset.selected = true
+          console.log('boat placed here', compCells[sqrSub20])
         } else {
           console.log('what happens here')
-          //return
-          
+          // THIS WILL NEED TO BE REWRITTEN TO ACCOUNT FOR SELECTED VALUES, NOT HIGHLIHGTED, WHEN SQUARE INDICIES ARE PUSHED TO ARRAYS
+          compCells.forEach(sqr => {
+            if (sqr.classList.contains('highlightOn')) {
+              sqr.classList.remove('highlightOn')
+            }
+          })
+          //HIGHLIGHTER COMMANDS REPLACED WITH COMMAND TO PUSH SQUARE INDICIES FOR EACH BOAT TO BOAT ARRAY
+          compCells[0].classList.add('highlightOn')
+          compCells[0].dataset.selected = true
+          compCells[1].classList.add('highlightOn')
+          compCells[1].dataset.selected = true
           compCells[99].classList.add('highlightOn2')
           compCells[99].dataset.selected = true
           compCells[89].classList.add('highlightOn2')
           compCells[89].dataset.selected = true
+          compCells[79].classList.add('highlightOn2')
+          compCells[79].dataset.selected = true
         }
-        //rebracket 2nd forEach here
+
         
       } 
       compBoatsPlaced++
