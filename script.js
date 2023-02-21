@@ -83,6 +83,8 @@ function init() {
 
       cell.dataset.selected = false
 
+      cell.dataset.clicked = false
+
       cell.innerText = i
 
       grid.appendChild(cell)
@@ -680,7 +682,7 @@ function init() {
         console.log(`The computer has ${compBoatsRemaining} left in play.`)
       } else {
         e.target.classList.add('miss')
-        console.log('YOU FUCKING MISSED ', e.target)
+        console.log('YOU MISSED ', e.target)
       } 
     } else if (gameActive === 2 && (compBoatsRemaining === 1 || playerBoatsRemaining === 1)) {
       if (e.target.dataset.selected === 'true') {
@@ -693,7 +695,7 @@ function init() {
         console.log(gameActive)
       } else {
         e.target.classList.add('miss')
-        console.log('YOU FUCKING MISSED ', e.target)
+        console.log('YOU MISSED ', e.target)
       } 
     } 
     computerTakeShot()
@@ -701,21 +703,31 @@ function init() {
   }
 
   function computerTakeShot() {
-    const randShotNum = Math.floor(Math.random() * 100)
-    const targetSquareSelect = playerCells[randShotNum].dataset.selected
-    const targetSquare = playerCells[randShotNum]
-    if (targetSquareSelect === 'true') {
-      targetSquare.classList.add('hit')
-      playerBoatsRemaining--
-    } else {
-      targetSquare.classList.add('miss')
+    let varActive = 1
+    //While varActive is 1, check whether the randomly targeted square has been target before
+    //if it has, find a new square to target
+    //if it hasn't, shoot it
+    while (varActive === 1 && playerBoatsRemaining > 0) {
+      const randShotNum = Math.floor(Math.random() * 100)
+      const targetSquareSelect = playerCells[randShotNum].dataset.selected
+      const targetSquare = playerCells[randShotNum]
+      if (targetSquare.dataset.clicked === 'true') {
+        console.log('FINDING NEW TARGET')
+      } else if (targetSquare.dataset.clicked === 'false') {
+        if (targetSquareSelect === 'true') {
+          targetSquare.classList.add('hit')
+          targetSquare.dataset.clicked = true
+          playerBoatsRemaining--
+          varActive ++
+        } else {
+          targetSquare.classList.add('miss')
+          targetSquare.dataset.clicked = true
+          varActive ++
+        }
+      }
+      
+      
     }
-    /*if (playerCells[randShotNum].dataset.selected === 'true') {
-      playerCells[randShotNum].classList.add('.hit')
-      playerBoatsRemaining--
-    } else {
-      playerCells[randShotNum].classList.add('.miss')
-    }*/
   }
 
 
