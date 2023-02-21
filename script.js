@@ -63,7 +63,7 @@ function init() {
   generateGrid(grid1, playerCells)
   generateGrid(grid2, compCells)
   compPlaceBoats()
-  compPlaceBoats()
+  
 
   console.log('GAME ACTIVE -->', gameActive)
   console.log('BOAT SELECTION -->', boatSelection)
@@ -273,34 +273,52 @@ function init() {
 
   //?COMPUTER SET UP FUNCTIONS
   function compPlaceBoats() {
-    
-    const randNum = Math.floor(Math.random() * compCells.length)
-    console.log('RANDNUM', randNum)
-    
-    if (compBoatsPlaced === 1) {
-      compCells.forEach(sqr => {
-        if (sqr.dataset.selected === 'false' && (randNum % width !== 0)) {
+    while (compBoatsPlaced <= 2) {
+      const randNum = Math.floor(Math.random() * compCells.length)
+      if (compBoatsPlaced === 1) {
+        //compCells.forEach(() => {})
+        if ((randNum % width !== 0)) {
           compCells[randNum].classList.add('highlightOn')
           compCells[randNum].dataset.selected = true
           compCells[randNum - 1].classList.add('highlightOn')
           compCells[randNum - 1].dataset.selected = true
-        } 
-      }) 
-      
-    } 
-    if (compBoatsPlaced === 2) {
-      compCells.forEach(sqr => {
-        if (sqr.dataset.selected === 'false' && (randNum % width !== 0) && sqr.classList.contains('highlightOn') !== true) {
+          
+        } else {
+          compCells[0].classList.add('highlightOn')
+          compCells[0].dataset.selected = true
+          compCells[1].classList.add('highlightOn')
+          compCells[1].dataset.selected = true
+        }
+        //rebracket 1st forEach here
+        
+        
+        
+      } else if (compBoatsPlaced === 2) {
+        //compCells.forEach(() => {}) 
+        const sqrSub10 = randNum - 10
+        if (compCells[randNum].dataset.index >= 10 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub10].dataset.index >= 0 && compCells[sqrSub10].dataset.selected === 'false') {
+          console.log('test')
           compCells[randNum].classList.add('highlightOn2')
           compCells[randNum].dataset.selected = true
-          compCells[(randNum - 1)].classList.add('highlightOn2')
-          compCells[randNum - 1].dataset.selected = true
-        } 
-      })
-    } 
-    compBoatsPlaced++
-    console.log('boatsPlaced', compBoatsPlaced)
-    
+          console.log('boat placed here', compCells[randNum])
+          compCells[sqrSub10].classList.add('highlightOn2')
+          compCells[sqrSub10].dataset.selected = true
+          console.log('boat placed here', compCells[sqrSub10])
+        } else {
+          console.log('what happens here')
+          //return
+          
+          compCells[99].classList.add('highlightOn2')
+          compCells[99].dataset.selected = true
+          compCells[89].classList.add('highlightOn2')
+          compCells[89].dataset.selected = true
+        }
+        //rebracket 2nd forEach here
+        
+      } 
+      compBoatsPlaced++
+      console.log('this is', compBoatsPlaced)
+    }
   }
 
 
@@ -338,3 +356,8 @@ function init() {
 
 }
 window.addEventListener('DOMContentLoaded', init)
+
+//&& (((randNum - 10) / width >= 1) || (randNum) === 10)
+//([sqr.dataset.index - 10].dataset.selected === 'false') && (((randNum - 10) / width >= 1) || (randNum) === 10)
+//&& (compCells[sqrSub10].dataset.selected === 'false') && (compCells[sqrSub10].dataset.index >= 0)
+//(sqr.dataset.selected !== 'true') && sqrSub10 >= 0 && (compCells[sqrSub10].dataset.selected === 'false')
