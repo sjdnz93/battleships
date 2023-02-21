@@ -175,6 +175,14 @@ main {
   background-color:black
 }
 
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: lightpink;
+}
+
 #playRulesWrap {
   height: 57vh;
   display: flex;

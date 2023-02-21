@@ -36,7 +36,7 @@ function init() {
   const pPatrolSquares = []
 
   //Computer boat type arrays
-  let cCarrierSquares = []
+  const cCarrierSquares = []
   let cBattleshipSquares = []
   let cDestroyerSquares = []
   let cSubmarineSquares = []
@@ -58,6 +58,7 @@ function init() {
   let boatSelection = 1
   let compBoatsPlaced = 1
   let compBoatsRemaining = 0
+  let playerBoatsRemaining = 17
 
   // !PAGE LOAD TASKS
 
@@ -186,7 +187,7 @@ function init() {
 
   //select function
   function confirmBoatPosition() {
-    if (gameActive === 1 && boatSelection <= 5) {
+    if (gameActive === 1 && boatSelection < 5) {
       checkHighlightingPushArray()
       console.log('PATROLS ===>', pPatrolSquares)
       console.log('SUBS ===>', pSubmarineSquares)
@@ -196,12 +197,22 @@ function init() {
       boatSelection++
       highlightBoatPic()
       console.log('BOAT SELECTION -->', boatSelection)
-    } else {
-      pCarrier.classList.remove('highlightOn')
-      
+    } else if (gameActive === 1 && boatSelection === 5) {
+      checkHighlightingPushArray()
+      console.log('PATROLS ===>', pPatrolSquares)
+      console.log('SUBS ===>', pSubmarineSquares)
+      console.log('DEST ===>', pDestroyerSquares)
+      console.log('BTTL ===>', pBattleshipSquares)
+      console.log('CARRIERS ===>', pCarrierSquares)
+      boatSelection++
+      highlightBoatPic()
+      console.log('BOAT SELECTION -->', boatSelection)
+      gameActive = 2
       console.log('GAME ACTIVE -->', gameActive)
-    }
+      pCarrier.classList.remove('highlightOn')
+    } 
   }
+  
 
   //highlight boat picture
   function highlightBoatPic() {
@@ -651,6 +662,28 @@ function init() {
     }
   }
 
+  //?ACTIVE GAMEPLAY FUNCTIONS
+  function takeShot(e) {
+    if (gameActive === 2 && (compBoatsRemaining > 0 || playerBoatsRemaining > 0)) {
+      if (e.target.dataset.selected === 'true') {
+        e.target.classList.add('hit')
+        console.log('Your shot successfully landed on ', e.target)
+      } else {
+        e.target.classList.add('miss')
+        console.log('YOU FUCKING MISSED ', e.target)
+      }
+      
+        
+
+
+
+
+
+
+
+    }
+  }
+
 
   // !EVENT LISTENERS
 
@@ -662,6 +695,11 @@ function init() {
     sqr.addEventListener('mouseover', highlightSquares)
     sqr.addEventListener('mouseleave', unhighlightSquares)
     sqr.addEventListener('click', confirmBoatPosition)
+  })
+
+  //Player shots at computer
+  compCells.forEach(sqr => {
+    sqr.addEventListener('click', takeShot)
   })
 
   document.addEventListener('keydown', boatOrientation)
@@ -687,9 +725,4 @@ function init() {
 }
 window.addEventListener('DOMContentLoaded', init)
 
-//&& (((randNum - 10) / width >= 1) || (randNum) === 10)
-//([sqr.dataset.index - 10].dataset.selected === 'false') && (((randNum - 10) / width >= 1) || (randNum) === 10)
-//&& (compCells[sqrSub10].dataset.selected === 'false') && (compCells[sqrSub10].dataset.index >= 0)
-//(sqr.dataset.selected !== 'true') && sqrSub10 >= 0 && (compCells[sqrSub10].dataset.selected === 'false')
 
-//((compCells[randNum - 1].dataset.index - 2) % width !== 0) &&
