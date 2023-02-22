@@ -3,7 +3,7 @@
 
 :root {
   --font: 'Khand', sans-serif;
-  --boatStandardBG: grey;
+  --boatStandardBG: rgba(128,128,128,0.7);
 }
 
 /* GENERAL STYLES */
@@ -188,11 +188,11 @@ h3 {
 }
 
 .highlightPlayerBoat {
-  background-color: aqua;
+  background-color: rgba(0,255,255,0.7);
 }
 
 .highlightOn {
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.8);
 }
 
 .highlightOn2 {
@@ -212,15 +212,15 @@ h3 {
 }
 
 .hit {
-  background-color: red;
+  background-color: rgba(255,0,0,0.6);
 }
 
 .miss {
-  background-color: darkblue;
+  background-color: rgba(0, 0, 139, 0.6);
 }
 
 .boatDestroyed {
-  background-color: red
+  background-color: rgba(255, 0, 0, 0.7);
 }
 
 #playRulesWrap {
@@ -235,7 +235,7 @@ h3 {
   height: 10vh;
   width: 10vh;
   border-radius: 100px;
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.7);
   color: white;
   font-size: 20px;
 }

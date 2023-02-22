@@ -35,6 +35,8 @@ function init() {
 
   //Rules box text
   const rulesText = document.querySelector('#instructionText')
+
+  const pingSound = document.querySelector('#sonarPing')
   
 
   // !VARIABLES - GLOBAL
@@ -250,8 +252,8 @@ function init() {
 
   //Highlight squares to help player positioning
   function highlightSquares(e) {
-    playerCells.forEach(sqr => { 
-      if (gameActive === 1 && horizontal === true /*&& sqr.dataset.selected === 'false'*/) {
+    playerCells.forEach(() => { 
+      if (gameActive === 1 && horizontal === true) {
         checkForHighlightingRemove()
         highlightHorizontal(e)
       } else if (gameActive === 1 && horizontal === false) {
@@ -705,8 +707,19 @@ function init() {
 
   //?AUDIO
   function playPing() {
-    const sound = document.getElementById('sonarPing')
-    sound.play()
+    pingSound.dataset.on = true
+    pingSound.play()
+  }
+
+  function mute(e) {
+    const m = 77
+    if (e.keyCode === m && pingSound.dataset.on === true) {
+      pingSound.dataset.on = false
+      pingSound.attributes.muted = true
+    } else if (e.keyCode === m && pingSound.dataset.on === false) {
+      pingSound.dataset.on = true
+      pingSound.attributes.muted = false
+    }
   }
 
   // !EVENT LISTENERS
@@ -729,6 +742,8 @@ function init() {
   })
 
   document.addEventListener('keydown', boatOrientation)
+  document.addEventListener('click', playPing)
+  document.addEventListener('keydown', mute)
   
 
 
