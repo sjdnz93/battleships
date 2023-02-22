@@ -89,7 +89,7 @@ function init() {
   //Generate grid
   function generateGrid(grid, cells) {
     for (let i = 0; i < cellCount; i++) {
-      const cell = document.createElement('div')
+      const cell = document.createElement('button')
 
       cell.classList.add('gameSquare')
 
@@ -148,31 +148,20 @@ function init() {
       playerMasterArray = []
 
       playerCells.forEach(sqr => {
-        if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4') || sqr.classList.contains('highlightOn5') || sqr.dataset.selected === 'true' || sqr.dataset.clicked === 'true' || sqr.classList.contains('hit') || sqr.classList.contains('miss')) {
-          sqr.dataset.selected = false
-          sqr.classList.remove('highlightOn')
-          //sqr.classList.remove('highlightOn2')
-          //sqr.classList.remove('highlightOn3')
-          //sqr.classList.remove('highlightOn4')
-          //sqr.classList.remove('highlightOn5')
-          sqr.classList.remove('hit')
-          sqr.classList.remove('miss')
-          sqr.dataset.clicked = false
-        }
+        sqr.dataset.selected = false
+        sqr.classList.remove('highlightOn')
+        sqr.classList.remove('hit')
+        sqr.classList.remove('miss')
+        sqr.dataset.clicked = false
+        sqr.disabled = false
       })
 
       compCells.forEach(sqr => {
-        if (sqr.classList.contains('highlightOn') || sqr.classList.contains('highlightOn2') || sqr.classList.contains('highlightOn3') || sqr.classList.contains('highlightOn4') || sqr.classList.contains('highlightOn5') || sqr.dataset.selected === 'true' || sqr.dataset.clicked === 'true' || sqr.classList.contains('hit') || sqr.classList.contains('miss')) {
-          sqr.dataset.selected = false
-          //sqr.classList.remove('highlightOn')
-          //sqr.classList.remove('highlightOn2')
-          //sqr.classList.remove('highlightOn3')
-          //sqr.classList.remove('highlightOn4')
-          //sqr.classList.remove('highlightOn5')
-          sqr.classList.remove('hit')
-          sqr.classList.remove('miss')
-          sqr.dataset.clicked = false
-        }
+        sqr.dataset.selected = false
+        sqr.classList.remove('hit')
+        sqr.classList.remove('miss')
+        sqr.dataset.clicked = false
+        sqr.disabled = false
       })
 
 
@@ -181,11 +170,11 @@ function init() {
       pDestroyer.classList.remove('boatDestroyed')
       pSubmarine.classList.remove('boatDestroyed')
       pPatrol.classList.remove('boatDestroyed')
-      pCarrier.classList.remove('highlightOn')
-      pBattleship.classList.remove('highlightOn')
-      pDestroyer.classList.remove('highlightOn')
-      pSubmarine.classList.remove('highlightOn')
-      pPatrol.classList.remove('highlightOn')
+      pCarrier.classList.remove('highlightPlayerBoat')
+      pBattleship.classList.remove('highlightPlayerBoat')
+      pDestroyer.classList.remove('highlightPlayerBoat')
+      pSubmarine.classList.remove('highlightPlayerBoat')
+      pPatrol.classList.remove('highlightPlayerBoat')
 
 
       cCarrier.classList.remove('boatDestroyed')
@@ -274,8 +263,8 @@ function init() {
 
   //change boat orientation
   function boatOrientation(e) {
-    const space = 32
-    if (e.keyCode === space && gameActive === 1) {
+    const r = 82
+    if (e.keyCode === r && gameActive === 1) {
       if (horizontal === true) {
         horizontal = false
         //console.log('HORIZONTAL -->', horizontal)
@@ -361,36 +350,43 @@ function init() {
         sqr.classList.add('highlightOn')
         pPatrolSquares.push(sqr.dataset.index)
         sqr.dataset.selected = true
+        sqr.disabled = true
         
         
       } else if (boatSelection === 2 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
         sqr.classList.add('highlightOn')
         pSubmarineSquares.push(sqr.dataset.index)
         sqr.dataset.selected = true
+        sqr.disabled = true
         
         
       } else if (boatSelection === 3 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
         sqr.classList.add('highlightOn')
         pDestroyerSquares.push(sqr.dataset.index)
         sqr.dataset.selected = true
+        sqr.disabled = true
         
       
       } else if (boatSelection === 4 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
         sqr.classList.add('highlightOn')
         pBattleshipSquares.push(sqr.dataset.index)
         sqr.dataset.selected = true
+        sqr.disabled = true
         
     
       } else if (boatSelection === 5 && sqr.dataset.selected === 'false' && sqr.classList.contains('highlightOn')) {
         sqr.classList.add('highlightOn')
         pCarrierSquares.push(sqr.dataset.index)
         sqr.dataset.selected = true
+        sqr.disabled = true
         
   
       } 
     })
     
   }
+
+
 
   //?COMPUTER SET UP FUNCTIONS
   function compPlaceBoats() {
@@ -404,10 +400,10 @@ function init() {
       //?Patrol boat placement (2 squares)
       if (compBoatsPlaced === 1) {
         if (randNum % width !== 0) {
-          compCells[randNum].classList.add('highlightOn')
+          //compCells[randNum].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn')
+          //compCells[randNum - 1].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
           compBoatsRemaining += 2
@@ -422,13 +418,13 @@ function init() {
         //?Submarine boat placement (3 squares)
       } else if (compBoatsPlaced === 2) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn2')
+          //compCells[randNum].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn2')
+          //compCells[sqrSub10].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn2')
+          //compCells[sqrSub20].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
           compBoatsRemaining += 3
@@ -442,13 +438,13 @@ function init() {
         //?Destyroyer placement (3 squares)
       } else if (compBoatsPlaced === 3) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn3')
+          //compCells[randNum].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn3')
+          //compCells[sqrSub10].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn3')
+          //compCells[sqrSub20].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
 
@@ -464,16 +460,16 @@ function init() {
       } else if (compBoatsPlaced === 4) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false') {
           console.log('test')
-          compCells[randNum].classList.add('highlightOn4')
+          //compCells[randNum].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn4')
+          //compCells[randNum - 1].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          compCells[randNum - 2].classList.add('highlightOn4')
+          //compCells[randNum - 2].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
-          compCells[randNum - 3].classList.add('highlightOn4')
+          //compCells[randNum - 3].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 3].dataset.index)
           compCells[randNum - 3].dataset.selected = true
 
@@ -489,19 +485,19 @@ function init() {
         //?carrier placement (5 squares)
       } else if (compBoatsPlaced === 5) {
         if (compCells[randNum].dataset.index >= 40 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub40].dataset.index >= 0 && compCells[sqrSub40].dataset.selected === 'false' && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn5')
+          //compCells[randNum].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn5')
+          //compCells[sqrSub10].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn5')
+          //compCells[sqrSub20].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
-          compCells[sqrSub30].classList.add('highlightOn5')
+          //compCells[sqrSub30].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub30].dataset.index)
           compCells[sqrSub30].dataset.selected = true
-          compCells[sqrSub40].classList.add('highlightOn5')
+          //compCells[sqrSub40].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub40].dataset.index)
           compCells[sqrSub40].dataset.selected = true
 
@@ -528,6 +524,7 @@ function init() {
     if (gameActive === 2 && compBoatsRemaining > 1 && playerBoatsRemaining > 1) {
       if (e.target.dataset.selected === 'true') {
         e.target.classList.add('hit')
+        e.target.disabled = true
         computerMasterArray.push(e.target.dataset.index)
         //console.log('Your shot successfully landed on ', e.target)
         compBoatsRemaining--
@@ -536,6 +533,7 @@ function init() {
         //console.log('COMPUTER HAS ATTEMPTED SHOT')
       } else {
         e.target.classList.add('miss')
+        e.target.disabled = true
         //console.log('YOU MISSED ', e.target)
         computerTakeShot()
         //console.log('COMPUTER HAS ATTEMPTED SHOT')
@@ -543,6 +541,7 @@ function init() {
     } else if (gameActive === 2 && (compBoatsRemaining === 1 || playerBoatsRemaining === 1)) {
       if (e.target.dataset.selected === 'true') {
         e.target.classList.add('hit')
+        e.target.disabled = true
         computerMasterArray.push(e.target.dataset.index)
         //console.log('Your shot successfully landed on ', e.target)
         compBoatsRemaining--
@@ -553,6 +552,7 @@ function init() {
         endGame()
       } else {
         e.target.classList.add('miss')
+        e.target.disabled = true
         //console.log('YOU MISSED ', e.target)
         computerTakeShot()
         //console.log('COMPUTER HAS ATTEMPTED SHOT')
@@ -696,7 +696,7 @@ function init() {
     if (gameActive === 0) {
       rulesText.innerText = 'Press the Play button to start the game'
     } else if (gameActive === 1) {
-      rulesText.innerText = 'Place your ships on your board. Press the spacebar to rotate boats horizontally or vertically.'
+      rulesText.innerText = 'Place your ships on your board. Press the \'R\' key to rotate boats horizontally or vertically.'
     } else if (gameActive === 2) {
       rulesText.innerText = 'Click on the Computer\'s board to take your shot!'
     }
@@ -714,6 +714,7 @@ function init() {
   //Start button
   startButton.addEventListener('click', startGame)
   startButton.addEventListener('click', resetBoard)
+  
 
   //Highlight tiles on gameboard
   playerCells.forEach(sqr => {
