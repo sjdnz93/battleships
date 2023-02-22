@@ -104,7 +104,7 @@ h3 {
 
 .boat {
   background-color: var(--boatStandardBG);
-  border: solid;
+  border: solid darkslategrey;
   height: 3vh;
 }
 

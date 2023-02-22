@@ -1,6 +1,7 @@
 function init() {
 
   // !ELEMENTS TO TARGET
+  
 
   //Grids
   const grid1 = document.querySelector('#wrapperContent1')
@@ -34,6 +35,7 @@ function init() {
 
   //Rules box text
   const rulesText = document.querySelector('#instructionText')
+  
 
   // !VARIABLES - GLOBAL
 
@@ -76,6 +78,7 @@ function init() {
   generateGrid(grid2, compCells)
   compPlaceBoats()
   updateInstructionsText()
+ 
   
 
   //console.log('GAME ACTIVE -->', gameActive)
@@ -259,7 +262,7 @@ function init() {
   //Highlight squares to help player positioning
   function highlightSquares(e) {
     playerCells.forEach(sqr => { 
-      if (gameActive === 1 && horizontal === true && sqr.dataset.selected === 'false') {
+      if (gameActive === 1 && horizontal === true /*&& sqr.dataset.selected === 'false'*/) {
         checkForHighlightingRemove()
         highlightHorizontal(e)
       } else if (gameActive === 1 && horizontal === false) {
@@ -950,7 +953,6 @@ function init() {
     }
   }
 
-  //add this into endGame?
   function  updateInstructionsText() {
     if (gameActive === 0) {
       rulesText.innerText = 'Press the Play button to start the game'
@@ -960,6 +962,12 @@ function init() {
       rulesText.innerText = 'Click on the Computer\'s board to take your shot!'
     }
 
+  }
+
+  //?AUDIO
+  function playPing() {
+    const sound = document.getElementById('sonarPing')
+    sound.play()
   }
 
   // !EVENT LISTENERS
