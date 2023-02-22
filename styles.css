@@ -183,6 +183,10 @@ main {
   background-color: lightpink;
 }
 
+.boatDestroyed {
+  background-color: red
+}
+
 #playRulesWrap {
   height: 57vh;
   display: flex;
