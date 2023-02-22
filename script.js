@@ -310,7 +310,7 @@ function init() {
       gameActive = 2
       updateInstructionsText()
       //console.log('GAME ACTIVE -->', gameActive)
-      pCarrier.classList.remove('highlightOn')
+      pCarrier.classList.remove('highlightPlayerBoat')
     } 
   }
   
@@ -318,19 +318,19 @@ function init() {
   //highlight boat picture
   function highlightBoatPic() {
     if (boatSelection === 1) {
-      pPatrol.classList.add('highlightOn')
+      pPatrol.classList.add('highlightPlayerBoat')
     } else if (boatSelection === 2) {
-      pPatrol.classList.remove('highlightOn')
-      pSubmarine.classList.add('highlightOn')
+      pPatrol.classList.remove('highlightPlayerBoat')
+      pSubmarine.classList.add('highlightPlayerBoat')
     } else if (boatSelection === 3) {
-      pSubmarine.classList.remove('highlightOn')
-      pDestroyer.classList.add('highlightOn')
+      pSubmarine.classList.remove('highlightPlayerBoat')
+      pDestroyer.classList.add('highlightPlayerBoat')
     } else if (boatSelection === 4) {
-      pDestroyer.classList.remove('highlightOn')
-      pBattleship.classList.add('highlightOn')
+      pDestroyer.classList.remove('highlightPlayerBoat')
+      pBattleship.classList.add('highlightPlayerBoat')
     } else if (boatSelection === 5) {
-      pBattleship.classList.remove('highlightOn')
-      pCarrier.classList.add('highlightOn')
+      pBattleship.classList.remove('highlightPlayerBoat')
+      pCarrier.classList.add('highlightPlayerBoat')
     } 
   }
 
