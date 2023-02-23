@@ -80,6 +80,8 @@ function init() {
   generateGrid(grid2, compCells)
   compPlaceBoats()
   updateInstructionsText()
+  
+  
  
   
 
@@ -394,114 +396,225 @@ function init() {
   function compPlaceBoats() {
     while (compBoatsPlaced <= 5) {
       const randNum = Math.floor(Math.random() * compCells.length)
+      const axis = Math.floor(Math.random() * 2)
       const sqrSub10 = randNum - 10
       const sqrSub20 = randNum - 20
       const sqrSub30 = randNum - 30
       const sqrSub40 = randNum - 40
 
-      //?Patrol boat placement (2 squares)
-      if (compBoatsPlaced === 1) {
+      //?Patrol boat placement horizontal (2 squares)
+      if (compBoatsPlaced === 1 && axis === 0) {
         if (randNum % width !== 0) {
-          //compCells[randNum].classList.add('highlightOn')
+          compCells[randNum].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          //compCells[randNum - 1].classList.add('highlightOn')
+          compCells[randNum - 1].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
           compBoatsRemaining += 2
           console.log('ind boat square count', compBoatsRemaining)
-          console.log('patrol vals logged ok', cPatrolSquares)
+          console.log('PATROL HORZ vals logged ok', cPatrolSquares)
           compBoatsPlaced++
         } else {
           console.log('finding new square for positioning')
         }
         
         
-        //?Submarine boat placement (3 squares)
-      } else if (compBoatsPlaced === 2) {
+      //?Patrol boat placement vertical (2 squares) 
+      } else if (compBoatsPlaced === 1 && axis === 1) {
+        if (compCells[randNum].dataset.index >= 10 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub10].dataset.index >= 0 && compCells[sqrSub10].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[randNum].dataset.index)
+          compCells[randNum].dataset.selected = true
+          compCells[sqrSub10].classList.add('highlightOn')
+          cPatrolSquares.push(compCells[sqrSub10].dataset.index)
+          compCells[sqrSub10].dataset.selected = true
+          compBoatsRemaining += 2
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('PATROL VERT vals logged ok', cPatrolSquares)
+          compBoatsPlaced++
+        } else {
+          console.log('finding new patrol vert square')
+        }
+      
+        //?Submarine boat placement vertical (3 squares)
+      } else if (compBoatsPlaced === 2 && axis === 1) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          //compCells[randNum].classList.add('highlightOn2')
+          compCells[randNum].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          //compCells[sqrSub10].classList.add('highlightOn2')
+          compCells[sqrSub10].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          //compCells[sqrSub20].classList.add('highlightOn2')
+          compCells[sqrSub20].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
           compBoatsRemaining += 3
           console.log('ind boat square count', compBoatsRemaining)
-          console.log('sub vals logged ok', cSubmarineSquares)
+          console.log('SUB VALS HORZ logged ok', cSubmarineSquares)
           compBoatsPlaced++
         } else {
-          console.log('finding new sub square')
+          console.log('finding new horz sub square')
         }
 
-        //?Destyroyer placement (3 squares)
-      } else if (compBoatsPlaced === 3) {
+        //?Submarine boat placement horizontal (3 squares)
+      } else if (compBoatsPlaced === 2 && axis === 0) {
+        if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[randNum].dataset.index)
+          compCells[randNum].dataset.selected = true
+          compCells[randNum - 1].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[randNum - 1].dataset.index)
+          compCells[randNum - 1].dataset.selected = true
+          compCells[randNum - 2].classList.add('highlightOn2')
+          cSubmarineSquares.push(compCells[randNum - 2].dataset.index)
+          compCells[randNum - 2].dataset.selected = true
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('SUB VALS VERT logged ok', cSubmarineSquares)
+          compBoatsPlaced++
+        } else {
+          console.log('finding new  vert sub square')
+        }
+
+        //?Destyroyer placement vertical (3 squares)
+      } else if (compBoatsPlaced === 3 && axis === 1) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          //compCells[randNum].classList.add('highlightOn3')
+          compCells[randNum].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          //compCells[sqrSub10].classList.add('highlightOn3')
+          compCells[sqrSub10].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          //compCells[sqrSub20].classList.add('highlightOn3')
+          compCells[sqrSub20].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
 
           compBoatsRemaining += 3
           console.log('ind boat square count', compBoatsRemaining)
-          console.log('Dest vals logged ok', cDestroyerSquares)
+          console.log('DEST VERT logged ok', cDestroyerSquares)
           compBoatsPlaced++
         } else {
           console.log('finding new Destroyer square')
         }
 
-        //?Battleship placement (4 squares)
-      } else if (compBoatsPlaced === 4) {
+        //?Destyroyer placement horizontal
+      } else if (compBoatsPlaced === 3 && axis === 0) {
+        if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[randNum].dataset.index)
+          compCells[randNum].dataset.selected = true
+          compCells[randNum - 1].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[randNum - 1].dataset.index)
+          compCells[randNum - 1].dataset.selected = true
+          compCells[randNum - 2].classList.add('highlightOn3')
+          cDestroyerSquares.push(compCells[randNum - 2].dataset.index)
+          compCells[randNum - 2].dataset.selected = true
+          compBoatsRemaining += 3
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('DEST HORZ logged ok', cDestroyerSquares)
+          compBoatsPlaced++
+        } else {
+          console.log('finding new HORZ DEST square')
+        }
+
+        //?Battleship placement horizontal (4 squares)
+      } else if (compBoatsPlaced === 4 && axis === 0) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false') {
           console.log('test')
-          //compCells[randNum].classList.add('highlightOn4')
+          compCells[randNum].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          //compCells[randNum - 1].classList.add('highlightOn4')
+          compCells[randNum - 1].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          //compCells[randNum - 2].classList.add('highlightOn4')
+          compCells[randNum - 2].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
-          //compCells[randNum - 3].classList.add('highlightOn4')
+          compCells[randNum - 3].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 3].dataset.index)
           compCells[randNum - 3].dataset.selected = true
 
           compBoatsRemaining += 4
           console.log('ind boat square count', compBoatsRemaining)
-          console.log('Bttl vals logged ok', cBattleshipSquares)
+          console.log('BTTL HORZ logged ok', cBattleshipSquares)
           compBoatsPlaced++
 
         } else {
-          console.log('finding new battleship')
+          console.log('finding new battleship horz')
         }
 
-        //?carrier placement (5 squares)
-      } else if (compBoatsPlaced === 5) {
+        //?Battleship placement vertical (4 squares)
+      } else if (compBoatsPlaced === 4) {
+        if (compCells[randNum].dataset.index >= 30 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub30].dataset.index >= 0 && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[randNum].dataset.index)
+          compCells[randNum].dataset.selected = true
+          compCells[sqrSub10].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[sqrSub10].dataset.index)
+          compCells[sqrSub10].dataset.selected = true
+          compCells[sqrSub20].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[sqrSub20].dataset.index)
+          compCells[sqrSub20].dataset.selected = true
+          compCells[sqrSub30].classList.add('highlightOn4')
+          cBattleshipSquares.push(compCells[sqrSub30].dataset.index)
+          compCells[sqrSub30].dataset.selected = true
+
+          compBoatsRemaining += 4
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('BTTL VERT logged ok', cBattleshipSquares)
+          compBoatsPlaced++
+        } else {
+          console.log('finding new battleship vert square')
+        }
+        //?carrier placement vertical (5 squares)
+      } else if (compBoatsPlaced === 5 && axis === 1) {
         if (compCells[randNum].dataset.index >= 40 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub40].dataset.index >= 0 && compCells[sqrSub40].dataset.selected === 'false' && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          //compCells[randNum].classList.add('highlightOn5')
+          compCells[randNum].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          //compCells[sqrSub10].classList.add('highlightOn5')
+          compCells[sqrSub10].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          //compCells[sqrSub20].classList.add('highlightOn5')
+          compCells[sqrSub20].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
-          //compCells[sqrSub30].classList.add('highlightOn5')
+          compCells[sqrSub30].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub30].dataset.index)
           compCells[sqrSub30].dataset.selected = true
-          //compCells[sqrSub40].classList.add('highlightOn5')
+          compCells[sqrSub40].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub40].dataset.index)
           compCells[sqrSub40].dataset.selected = true
+
+          compBoatsRemaining += 5
+          console.log('ind boat square count', compBoatsRemaining)
+          console.log('FINALCarrier  vals logged OK', cCarrierSquares) 
+          console.log('FINALBttl vals logged OK', cBattleshipSquares) 
+          console.log('FINALDest vals logged OK', cDestroyerSquares) 
+          console.log('FINALSub vals logged OK', cSubmarineSquares) 
+          console.log('FINALPatrol vals logged OK', cPatrolSquares) 
+          compBoatsPlaced++
+        } else {
+          console.log('finding new carrier square')
+        }
+        //?carrier placement horizontal
+      } else if (compBoatsPlaced === 5 && axis === 0) {
+        if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index - 4 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false' && compCells[randNum - 4].dataset.selected === 'false') {
+          compCells[randNum].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum].dataset.index)
+          compCells[randNum].dataset.selected = true
+          compCells[randNum - 1].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum - 1].dataset.index)
+          compCells[randNum - 1].dataset.selected = true
+          compCells[randNum - 2].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum - 2].dataset.index)
+          compCells[randNum - 2].dataset.selected = true
+          compCells[randNum - 3].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum - 3].dataset.index)
+          compCells[randNum - 3].dataset.selected = true
+          compCells[randNum - 4].classList.add('highlightOn5')
+          cCarrierSquares.push(compCells[randNum - 4].dataset.index)
+          compCells[randNum - 4].dataset.selected = true
 
           compBoatsRemaining += 5
           console.log('ind boat square count', compBoatsRemaining)
