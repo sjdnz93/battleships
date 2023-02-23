@@ -280,8 +280,8 @@ function init() {
   }
 
   //select function
-  function confirmBoatPosition() {
-    if (gameActive === 1 && boatSelection < 5) {
+  function confirmBoatPosition(e) {
+    if (gameActive === 1 && boatSelection < 5 && e.target.classList.contains('highlightOn')) {
       checkHighlightingPushArray()
       //console.log('PATROLS ===>', pPatrolSquares)
       //console.log('SUBS ===>', pSubmarineSquares)
@@ -292,7 +292,7 @@ function init() {
       boatSelection++
       highlightBoatPic()
       //console.log('BOAT SELECTION -->', boatSelection)
-    } else if (gameActive === 1 && boatSelection === 5) {
+    } else if (gameActive === 1 && boatSelection === 5 && e.target.classList.contains('highlightOn')) {
       checkHighlightingPushArray()
       //console.log('PATROLS ===>', pPatrolSquares)
       //console.log('SUBS ===>', pSubmarineSquares)
@@ -405,10 +405,10 @@ function init() {
       //?Patrol boat placement horizontal (2 squares)
       if (compBoatsPlaced === 1 && axis === 0) {
         if (randNum % width !== 0) {
-          compCells[randNum].classList.add('highlightOn')
+          //compCells[randNum].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn')
+          //compCells[randNum - 1].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
           compBoatsRemaining += 2
@@ -423,10 +423,10 @@ function init() {
       //?Patrol boat placement vertical (2 squares) 
       } else if (compBoatsPlaced === 1 && axis === 1) {
         if (compCells[randNum].dataset.index >= 10 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub10].dataset.index >= 0 && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn')
+          //compCells[randNum].classList.add('highlightOn')
           cPatrolSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn')
+          //compCells[sqrSub10].classList.add('highlightOn')
           cPatrolSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
           compBoatsRemaining += 2
@@ -440,13 +440,13 @@ function init() {
         //?Submarine boat placement vertical (3 squares)
       } else if (compBoatsPlaced === 2 && axis === 1) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn2')
+          //compCells[randNum].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn2')
+          //compCells[sqrSub10].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn2')
+          //compCells[sqrSub20].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
           compBoatsRemaining += 3
@@ -460,13 +460,13 @@ function init() {
         //?Submarine boat placement horizontal (3 squares)
       } else if (compBoatsPlaced === 2 && axis === 0) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn2')
+          //compCells[randNum].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn2')
+          //compCells[randNum - 1].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          compCells[randNum - 2].classList.add('highlightOn2')
+          //compCells[randNum - 2].classList.add('highlightOn2')
           cSubmarineSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
           compBoatsRemaining += 3
@@ -480,13 +480,13 @@ function init() {
         //?Destyroyer placement vertical (3 squares)
       } else if (compBoatsPlaced === 3 && axis === 1) {
         if (compCells[randNum].dataset.index >= 20 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub20].dataset.index >= 0 && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn3')
+          //compCells[randNum].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn3')
+          //compCells[sqrSub10].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn3')
+          //compCells[sqrSub20].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
 
@@ -501,13 +501,13 @@ function init() {
         //?Destyroyer placement horizontal
       } else if (compBoatsPlaced === 3 && axis === 0) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn3')
+          //compCells[randNum].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn3')
+          //compCells[randNum - 1].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          compCells[randNum - 2].classList.add('highlightOn3')
+          //compCells[randNum - 2].classList.add('highlightOn3')
           cDestroyerSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
           compBoatsRemaining += 3
@@ -522,16 +522,16 @@ function init() {
       } else if (compBoatsPlaced === 4 && axis === 0) {
         if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false') {
           console.log('test')
-          compCells[randNum].classList.add('highlightOn4')
+          //compCells[randNum].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn4')
+          //compCells[randNum - 1].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          compCells[randNum - 2].classList.add('highlightOn4')
+          //compCells[randNum - 2].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
-          compCells[randNum - 3].classList.add('highlightOn4')
+          //compCells[randNum - 3].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum - 3].dataset.index)
           compCells[randNum - 3].dataset.selected = true
 
@@ -547,16 +547,16 @@ function init() {
         //?Battleship placement vertical (4 squares)
       } else if (compBoatsPlaced === 4) {
         if (compCells[randNum].dataset.index >= 30 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub30].dataset.index >= 0 && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn4')
+          //compCells[randNum].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn4')
+          //compCells[sqrSub10].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn4')
+          //compCells[sqrSub20].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
-          compCells[sqrSub30].classList.add('highlightOn4')
+          //compCells[sqrSub30].classList.add('highlightOn4')
           cBattleshipSquares.push(compCells[sqrSub30].dataset.index)
           compCells[sqrSub30].dataset.selected = true
 
@@ -570,19 +570,19 @@ function init() {
         //?carrier placement vertical (5 squares)
       } else if (compBoatsPlaced === 5 && axis === 1) {
         if (compCells[randNum].dataset.index >= 40 && compCells[randNum].dataset.selected === 'false' && compCells[sqrSub40].dataset.index >= 0 && compCells[sqrSub40].dataset.selected === 'false' && compCells[sqrSub30].dataset.selected === 'false' && compCells[sqrSub20].dataset.selected === 'false' && compCells[sqrSub10].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn5')
+          //compCells[randNum].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[sqrSub10].classList.add('highlightOn5')
+          //compCells[sqrSub10].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub10].dataset.index)
           compCells[sqrSub10].dataset.selected = true
-          compCells[sqrSub20].classList.add('highlightOn5')
+          //compCells[sqrSub20].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub20].dataset.index)
           compCells[sqrSub20].dataset.selected = true
-          compCells[sqrSub30].classList.add('highlightOn5')
+          //compCells[sqrSub30].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub30].dataset.index)
           compCells[sqrSub30].dataset.selected = true
-          compCells[sqrSub40].classList.add('highlightOn5')
+          //compCells[sqrSub40].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[sqrSub40].dataset.index)
           compCells[sqrSub40].dataset.selected = true
 
@@ -599,20 +599,20 @@ function init() {
         }
         //?carrier placement horizontal
       } else if (compBoatsPlaced === 5 && axis === 0) {
-        if (((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3 % width !== 0) && (compCells[randNum].dataset.index - 4 % width !== 0) && (compCells[randNum].dataset.index % width !== 0)) && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false' && compCells[randNum - 4].dataset.selected === 'false') {
-          compCells[randNum].classList.add('highlightOn5')
+        if ((compCells[randNum].dataset.index) % width !== 0 && (compCells[randNum].dataset.index - 1) % width !== 0 && (compCells[randNum].dataset.index - 2) % width !== 0 && (compCells[randNum].dataset.index - 3) % width !== 0 && (compCells[randNum].dataset.index - 4) % width !== 0 && compCells[randNum].dataset.selected === 'false' && compCells[randNum - 1].dataset.selected === 'false' &&  compCells[randNum - 2].dataset.selected === 'false' && compCells[randNum - 3].dataset.selected === 'false' && compCells[randNum - 4].dataset.selected === 'false') {
+          //compCells[randNum].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum].dataset.index)
           compCells[randNum].dataset.selected = true
-          compCells[randNum - 1].classList.add('highlightOn5')
+          //compCells[randNum - 1].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum - 1].dataset.index)
           compCells[randNum - 1].dataset.selected = true
-          compCells[randNum - 2].classList.add('highlightOn5')
+          //compCells[randNum - 2].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum - 2].dataset.index)
           compCells[randNum - 2].dataset.selected = true
-          compCells[randNum - 3].classList.add('highlightOn5')
+          //compCells[randNum - 3].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum - 3].dataset.index)
           compCells[randNum - 3].dataset.selected = true
-          compCells[randNum - 4].classList.add('highlightOn5')
+          //compCells[randNum - 4].classList.add('highlightOn5')
           cCarrierSquares.push(compCells[randNum - 4].dataset.index)
           compCells[randNum - 4].dataset.selected = true
 
