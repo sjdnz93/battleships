@@ -35,7 +35,7 @@ function init() {
 
   //Rules box text
   const rulesText = document.querySelector('#instructionText')
-
+  const muteControl = document.querySelector('#muteControl')
   const pingSound = document.querySelector('#sonarPing')
   
 
@@ -707,18 +707,24 @@ function init() {
 
   //?AUDIO
   function playPing() {
-    pingSound.dataset.on = true
-    pingSound.play()
+    if (pingSound.dataset.on === 'true') {
+      pingSound.play()
+      console.log(pingSound)
+    }
   }
 
   function mute(e) {
-    const m = 77
-    if (e.keyCode === m && pingSound.dataset.on === true) {
-      pingSound.dataset.on = false
-      pingSound.attributes.muted = true
-    } else if (e.keyCode === m && pingSound.dataset.on === false) {
-      pingSound.dataset.on = true
-      pingSound.attributes.muted = false
+    if (e.keyCode === 77 && pingSound.dataset.on === 'true') {
+      //pingSound.dataset.on = false
+      console.log(pingSound.dataset.on)
+      pingSound.dataset.on = 'false'
+      muteControl.innerText = 'Press \'M\' to unmute the game'
+     
+    } else if (e.keyCode === 77 && pingSound.dataset.on === 'false') {
+      //pingSound.dataset.on = true
+      console.log(pingSound.dataset.on)
+      pingSound.dataset.on = 'true'
+      muteControl.innerText = 'Press \'M\' to mute the game'
     }
   }
 
