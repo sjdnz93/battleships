@@ -15,10 +15,6 @@ function init() {
   const playerCells = []
   const compCells = []
 
-  //Boat divs
-
-  const allBoats = document.querySelectorAll('boat')
-
   //Player boat divs
   const pCarrier = document.querySelector('#pCarrier')
   const pBattleship = document.querySelector('#pBattleship')
