@@ -676,6 +676,12 @@ function init() {
 
   function computerTakeShot() {
     let varActive = 1
+    const shootNearThisSquare = playerCells.filter(t => {
+      if (t.dataset.selected === 'true' && t.classList.contains('hit')) {
+        return t.dataset.index
+      }
+    })
+    console.log('SQUARES TO TARGET-->', shootNearThisSquare)
     //While varActive is 1, check whether the randomly targeted square has been target before
     //if it has, find a new square to target
     //if it hasn't, shoot it
@@ -684,6 +690,10 @@ function init() {
       const targetSquareSelect = playerCells[randShotNum].dataset.selected
       const targetSquareIndex = playerCells[randShotNum].dataset.index
       const targetSquare = playerCells[randShotNum]
+      
+
+
+
       if (playerBoatsRemaining > 1) {
         if (targetSquare.dataset.clicked === 'true') {
           console.log('FINDING NEW TARGET')
