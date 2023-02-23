@@ -197,23 +197,23 @@ function init() {
   //Highlight horizontal squares
   function highlightHorizontal(e) {
     const adjacentValues = [e.target.dataset.index - 1, e.target.dataset.index - 2, e.target.dataset.index - 3, e.target.dataset.index - 4, e.target.dataset.index - 5]
-    if (boatSelection === 1 && (e.target.dataset.index % width !== 0)){
+    if (boatSelection === 1 && (e.target.dataset.index % width !== 0) && e.target.classList.contains('highlightOn') === false && playerCells[adjacentValues[0]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-    } else if (boatSelection === 2 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
-      e.target.classList.toggle('highlightOn')
-      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
-      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-    } else if (boatSelection === 3 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
+    } else if (boatSelection === 2 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0) && e.target.classList.contains('highlightOn') === false && playerCells[adjacentValues[0]].classList.contains('highlightOn') === false && playerCells[adjacentValues[1]].classList.contains('highlightOn') === false) {
       e.target.classList.toggle('highlightOn')
       playerCells[adjacentValues[0]].classList.toggle('highlightOn')
       playerCells[adjacentValues[1]].classList.toggle('highlightOn')
-    } else if (boatSelection === 4 && ((e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 )){
+    } else if (boatSelection === 3 && ((e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 ) && e.target.classList.contains('highlightOn') === false && playerCells[adjacentValues[0]].classList.contains('highlightOn') === false && playerCells[adjacentValues[1]].classList.contains('highlightOn') === false){
+      e.target.classList.toggle('highlightOn')
+      playerCells[adjacentValues[0]].classList.toggle('highlightOn')
+      playerCells[adjacentValues[1]].classList.toggle('highlightOn')
+    } else if (boatSelection === 4 && ((e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0 ) && e.target.classList.contains('highlightOn') === false && playerCells[adjacentValues[0]].classList.contains('highlightOn') === false && playerCells[adjacentValues[1]].classList.contains('highlightOn') === false && playerCells[adjacentValues[2]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')  
       playerCells[adjacentValues[0]].classList.toggle('highlightOn')
       playerCells[adjacentValues[1]].classList.toggle('highlightOn')
       playerCells[adjacentValues[2]].classList.toggle('highlightOn')
-    } else if (boatSelection === 5 && ((e.target.dataset.index - 3) % width !== 0 && (e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0)){
+    } else if (boatSelection === 5 && ((e.target.dataset.index - 3) % width !== 0 && (e.target.dataset.index - 2) % width !== 0 && (e.target.dataset.index - 1) % width !== 0 && e.target.dataset.index % width !== 0) && e.target.classList.contains('highlightOn') === false && playerCells[adjacentValues[0]].classList.contains('highlightOn') === false && playerCells[adjacentValues[1]].classList.contains('highlightOn') === false && playerCells[adjacentValues[2]].classList.contains('highlightOn') === false && playerCells[adjacentValues[3]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[adjacentValues[0]].classList.toggle('highlightOn')
       playerCells[adjacentValues[1]].classList.toggle('highlightOn')
@@ -225,23 +225,23 @@ function init() {
   //Highlight vertical squares
   function highlightVertical(e) {
     const vertValues = [e.target.dataset.index - 10, e.target.dataset.index - 20, e.target.dataset.index - 30, e.target.dataset.index - 40, e.target.dataset.index - 50]
-    if (boatSelection === 1 && (e.target.dataset.index / width >= 1)){
+    if (boatSelection === 1 && (e.target.dataset.index / width >= 1) && e.target.classList.contains('highlightOn') === false && playerCells[vertValues[0]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[vertValues[0]].classList.toggle('highlightOn')
-    } else if (boatSelection === 2 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
-      e.target.classList.toggle('highlightOn')
-      playerCells[vertValues[0]].classList.toggle('highlightOn')
-      playerCells[vertValues[1]].classList.toggle('highlightOn')
-    } else if (boatSelection === 3 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+    } else if (boatSelection === 2 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1) && e.target.classList.contains('highlightOn') === false && playerCells[vertValues[0]].classList.contains('highlightOn') === false && playerCells[vertValues[1]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[vertValues[0]].classList.toggle('highlightOn')
       playerCells[vertValues[1]].classList.toggle('highlightOn')
-    } else if (boatSelection === 4 && ((e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+    } else if (boatSelection === 3 && ((e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1) && e.target.classList.contains('highlightOn') === false && playerCells[vertValues[0]].classList.contains('highlightOn') === false && playerCells[vertValues[1]].classList.contains('highlightOn') === false){
+      e.target.classList.toggle('highlightOn')
+      playerCells[vertValues[0]].classList.toggle('highlightOn')
+      playerCells[vertValues[1]].classList.toggle('highlightOn')
+    } else if (boatSelection === 4 && ((e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1) && e.target.classList.contains('highlightOn') === false && playerCells[vertValues[0]].classList.contains('highlightOn') === false && playerCells[vertValues[1]].classList.contains('highlightOn') === false && playerCells[vertValues[2]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[vertValues[0]].classList.toggle('highlightOn')
       playerCells[vertValues[1]].classList.toggle('highlightOn')
       playerCells[vertValues[2]].classList.toggle('highlightOn')
-    } else if (boatSelection === 5 && ((e.target.dataset.index - 30) / width >= 1 && (e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1)){
+    } else if (boatSelection === 5 && ((e.target.dataset.index - 30) / width >= 1 && (e.target.dataset.index - 20) / width >= 1 && (e.target.dataset.index - 10) / width >= 1 && e.target.dataset.index / width >= 1) && e.target.classList.contains('highlightOn') === false && playerCells[vertValues[0]].classList.contains('highlightOn') === false && playerCells[vertValues[1]].classList.contains('highlightOn') === false && playerCells[vertValues[2]].classList.contains('highlightOn') === false && playerCells[vertValues[3]].classList.contains('highlightOn') === false){
       e.target.classList.toggle('highlightOn')
       playerCells[vertValues[0]].classList.toggle('highlightOn')
       playerCells[vertValues[1]].classList.toggle('highlightOn')
@@ -709,20 +709,15 @@ function init() {
   function playPing() {
     if (pingSound.dataset.on === 'true') {
       pingSound.play()
-      console.log(pingSound)
     }
   }
 
   function mute(e) {
     if (e.keyCode === 77 && pingSound.dataset.on === 'true') {
-      //pingSound.dataset.on = false
-      console.log(pingSound.dataset.on)
       pingSound.dataset.on = 'false'
       muteControl.innerText = 'Press \'M\' to unmute the game'
      
     } else if (e.keyCode === 77 && pingSound.dataset.on === 'false') {
-      //pingSound.dataset.on = true
-      console.log(pingSound.dataset.on)
       pingSound.dataset.on = 'true'
       muteControl.innerText = 'Press \'M\' to mute the game'
     }
@@ -751,24 +746,6 @@ function init() {
   document.addEventListener('click', playPing)
   document.addEventListener('keydown', mute)
   
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-   
-
 }
 window.addEventListener('DOMContentLoaded', init)
 
