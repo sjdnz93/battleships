@@ -302,6 +302,7 @@ function init() {
       gameActive = 2
       updateInstructionsText()
       //console.log('GAME ACTIVE -->', gameActive)
+      addTracker(e)
       pCarrier.classList.remove('highlightPlayerBoat')
     } 
   }
@@ -676,12 +677,7 @@ function init() {
 
   function computerTakeShot() {
     let varActive = 1
-    const shootNearThisSquare = playerCells.filter(t => {
-      if (t.dataset.selected === 'true' && t.classList.contains('hit')) {
-        return t.dataset.index
-      }
-    })
-    console.log('SQUARES TO TARGET-->', shootNearThisSquare)
+
     //While varActive is 1, check whether the randomly targeted square has been target before
     //if it has, find a new square to target
     //if it hasn't, shoot it
@@ -691,9 +687,6 @@ function init() {
       const targetSquareIndex = playerCells[randShotNum].dataset.index
       const targetSquare = playerCells[randShotNum]
       
-
-
-
       if (playerBoatsRemaining > 1) {
         if (targetSquare.dataset.clicked === 'true') {
           console.log('FINDING NEW TARGET')
@@ -730,6 +723,7 @@ function init() {
           }
         }
       }
+     
       destroyPlayerBoat()
       
     }
@@ -790,6 +784,10 @@ function init() {
     if (allPCarrierHit === true) {
       pCarrier.classList.add('boatDestroyed')
     }
+  }
+
+  function addTracker(e) {
+    e.target.dataset.tracker = 'y'
   }
 
 
@@ -869,3 +867,97 @@ function init() {
 window.addEventListener('DOMContentLoaded', init)
 
 
+/*         const shootNearThisSquare = playerCells.filter(t => {
+      if (t.dataset.selected === 'true' && (t.classList.contains('hit') || t.dataset.tracker === 'y')) { //the tracker bit is added when the player places their final boat. might need to be removed if too difficult
+        console.log(t.dataset.index)
+        return t.dataset.index
+      }
+    })
+    console.log('SQUARES TO TARGET-->', shootNearThisSquare)
+
+
+      //look through shootnearthis square. if array[0].index - 1 or -10 or +1 or +10 hasn't been clicked, shoot. if successful, shift from front of array
+      if (playerCells[shootNearThisSquare[0].dataset.index].dataset.clicked === 'false') {
+        if (playerCells[shootNearThisSquare[0].dataset.index].dataset.selected === 'true') {
+          playerCells[shootNearThisSquare[0].dataset.index].classList.add('hit')
+          playerCells[shootNearThisSquare[0].dataset.index].dataset.clicked = true
+          playerMasterArray.unshift(playerCells[shootNearThisSquare[0].dataset.index].dataset.index)
+          playerBoatsRemaining--
+          //shootNearThisSquare.pop()
+          varActive ++
+        } else {
+          playerCells[shootNearThisSquare[0].dataset.index].classList.add('miss')
+          playerCells[shootNearThisSquare[0].dataset.index].dataset.clicked = true
+          varActive ++
+        }
+      } else if ((playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.index % width !== 0 && playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.clicked === 'false')) {
+        if (playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.selected === 'true') {
+          playerCells[shootNearThisSquare[0].dataset.index - 1].classList.add('hit')
+          playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.clicked = true
+          playerMasterArray.unshift(playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.index)
+          playerBoatsRemaining--
+          //shootNearThisSquare.pop()
+          varActive ++
+        } else {
+          playerCells[shootNearThisSquare[0].dataset.index - 1].classList.add('miss')
+          playerCells[shootNearThisSquare[0].dataset.index - 1].dataset.clicked = true
+          varActive ++
+        }
+      } else if ((playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.index % width !== 0 && playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.clicked === 'false')) {
+        if (playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.selected === 'true') {
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].classList.add('hit')
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.clicked = true
+          playerMasterArray.unshift(playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.index)
+          playerBoatsRemaining--
+          //shootNearThisSquare.pop()
+          varActive ++
+        } else {
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].classList.add('miss')
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 1].dataset.clicked = true
+          varActive ++
+        }
+      } else if ((playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.index >= 0 && playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.clicked === 'false')) {
+        if (playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.selected === 'true') {
+          playerCells[shootNearThisSquare[0].dataset.index - 10].classList.add('hit')
+          playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.clicked = true
+          playerMasterArray.unshift(playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.index)
+          playerBoatsRemaining--
+          //shootNearThisSquare.pop()
+          varActive ++
+        } else {
+          playerCells[shootNearThisSquare[0].dataset.index - 10].classList.add('miss')
+          playerCells[shootNearThisSquare[0].dataset.index - 10].dataset.clicked = true
+          varActive ++
+        }
+      } else if ((playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.index <= 99 && playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.clicked === 'false')) {
+        if (playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.selected === 'true') {
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].classList.add('hit')
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.clicked = true
+          playerMasterArray.unshift(playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.index)
+          playerBoatsRemaining--
+          //shootNearThisSquare.pop()
+          varActive ++
+        } else {
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].classList.add('miss')
+          playerCells[parseInt(shootNearThisSquare[0].dataset.index) + 10].dataset.clicked = true
+          varActive ++
+        }
+      }
+      if (playerBoatsRemaining > 1 && repeatTarget === true) {
+        if (playerCells[repeatIndex[0] - 1].dataset.clicked === 'true') {
+          console.log('FINDING NEW TARGET')
+        } else if (playerCells[repeatIndex[0] - 1].dataset.clicked === 'false') {
+          if (playerCells[repeatIndex[0] - 1].dataset.selected === 'true') {
+            targetSquare.classList.add('hit')
+            targetSquare.dataset.clicked = true
+            playerMasterArray.push(targetSquareIndex)
+            playerBoatsRemaining--
+            varActive ++
+          } else {
+            targetSquare.classList.add('miss')
+            targetSquare.dataset.clicked = true
+            varActive ++
+          }
+        }
+      } else 
+      */
