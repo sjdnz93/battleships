@@ -30,7 +30,7 @@ The brief was reasonably straightforward, but given the fact that all of these t
 * Intelligent shot logic for the computer (identify successful hits and target adjacent squares)
 
 ## Deployment
-<a href="https://sjdnz93.github.io/battleships/" target="_blank" rel="noreferrer">Battleships - check out the project here</a>
+<a href="https://sjdnz93.github.io/battleships/">Battleships - check out the project here</a>
 
 ## Timeframe
 This was a solo project. I was given a week to plan, design, build and deploy this project from scratch.
